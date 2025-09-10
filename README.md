@@ -1,6 +1,6 @@
 ENV File Parameters
 
-Put it next to the src
+Put it next to the app
 
 ```
 MONGO_HOST=mongo-db
