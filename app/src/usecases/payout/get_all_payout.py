@@ -1,4 +1,4 @@
-from app.src.domain.filter.payout_filter import PayoutFilter
+from app.src.models.filter.payout_filter import PayoutFilter
 from app.src.models.schemas.payout.payout_paginate import PayoutPaginate
 from app.src.repo.interface.Ipayout_repo import IPayoutRepo
 from app.src.repo.interface.Iuser_repo import IUserRepo
@@ -27,7 +27,7 @@ class GetAllPayouts:
             
             payouts_list: list[PayoutModel] = await self.payout_repo.get_all_by_filter(payout_filter)
             
-            docs_number = await self.payout_repo.count_by_filter(payout_filter)
+            payouts_number = await self.payout_repo.count_by_filter(payout_filter)
                 
             for payout in payouts_list:
                 if payout_filter.add_wallet:
@@ -38,8 +38,8 @@ class GetAllPayouts:
             return PayoutPaginate(
                 page = payout_filter.page,
                 pageSize = self.payout_repo.page_size,
-                totalPages = -(-docs_number // self.payout_repo.page_size) if payout_filter.page else 1,
-                totalDocs = docs_number if payout_filter.page else len(payouts_list),
+                totalPages = -(-payouts_number // self.payout_repo.page_size) if payout_filter.page else 1,
+                totalDocs = payouts_number if payout_filter.page else len(payouts_list),
                 results = [ p.model_dump(by_alias=True) for p in payouts_list],
             )
         except:

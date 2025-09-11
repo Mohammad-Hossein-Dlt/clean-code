@@ -1,8 +1,7 @@
 from app.src.domain.schemas.payout.payout_model import PayoutModel
-from app.src.infra.db.mongodb.sessions.wallet_session import WalletSession
 from app.src.repo.interface.Ipayout_repo import IPayoutRepo
-from app.src.infra.db.mongodb.sessions.payout_session import PayoutSession
-from app.src.domain.filter.payout_filter import PayoutFilter
+from app.src.infra.db.mongodb.collections.payout_collection import PayoutCollection
+from app.src.models.filter.payout_filter import PayoutFilter
 
 class PayoutMongodbRepo(IPayoutRepo):
     
@@ -15,9 +14,9 @@ class PayoutMongodbRepo(IPayoutRepo):
         payout_filter: PayoutFilter,
     ) -> int:
         
-        query = PayoutSession.create_query_by_filter(payout_filter)
+        query = PayoutCollection.create_query_by_filter(payout_filter)
         
-        docs_number = await PayoutSession.find(query).count()
+        docs_number = await PayoutCollection.find(query).count()
         
         return docs_number
     
@@ -26,14 +25,14 @@ class PayoutMongodbRepo(IPayoutRepo):
         payout_filter: PayoutFilter,
     ) -> list[PayoutModel]:
         
-        query = PayoutSession.create_query_by_filter(payout_filter)
-        payouts: list[PayoutSession] = []
+        query = PayoutCollection.create_query_by_filter(payout_filter)
+        payouts: list[PayoutCollection] = []
         
         if payout_filter.page is None:
-            payouts  = await PayoutSession.find(query).to_list()
+            payouts  = await PayoutCollection.find(query).to_list()
         else:
             skip = (payout_filter.page - 1) * self.page_size
-            payouts = await PayoutSession.find(query).skip(skip).limit(self.page_size).to_list()
+            payouts = await PayoutCollection.find(query).skip(skip).limit(self.page_size).to_list()
                             
         return [ PayoutModel.model_validate(payout, from_attributes=True) for payout in payouts ]
     

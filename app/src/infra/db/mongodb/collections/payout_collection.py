@@ -1,9 +1,9 @@
 from beanie import Document
 from app.src.domain.schemas.payout.payout_model import PayoutModel
-from app.src.domain.filter.payout_filter import PayoutFilter
+from app.src.models.filter.payout_filter import PayoutFilter
 
 
-class PayoutSession(PayoutModel, Document):
+class PayoutCollection(PayoutModel, Document):
     class Settings:
         name = "Payout"
         

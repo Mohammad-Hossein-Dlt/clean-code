@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from app.src.domain.filter.payout_filter import PayoutFilter
+from app.src.models.filter.payout_filter import PayoutFilter
 from app.src.domain.schemas.payout.payout_model import PayoutModel
 
 

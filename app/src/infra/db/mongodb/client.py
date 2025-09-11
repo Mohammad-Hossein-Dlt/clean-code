@@ -1,8 +1,8 @@
 from pymongo import AsyncMongoClient
 from beanie import init_beanie
-from .sessions.user_session import UserSession
-from .sessions.wallet_session import WalletSession
-from .sessions.payout_session import PayoutSession
+from .collections.user_collection import UserCollection
+from .collections.wallet_collection import WalletCollection
+from .collections.payout_collection import PayoutCollection
 
 
 async def init_mongodb(
@@ -23,8 +23,8 @@ async def init_mongodb(
     await init_beanie(
         database=client[db_name],
         document_models=[
-            UserSession,
-            WalletSession,
-            PayoutSession,
+            UserCollection,
+            WalletCollection,
+            PayoutCollection,
         ],
     )

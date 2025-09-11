@@ -1,11 +1,11 @@
 from app.src.domain.schemas.user.user_model import UserModel
 from app.src.domain.schemas.user.wallet_model import WalletModel
 from app.src.domain.schemas.payout.payout_model import PayoutModel
-from app.src.infra.db.mongodb.sessions.user_session import UserSession
-from app.src.infra.db.mongodb.sessions.wallet_session import WalletSession
-from app.src.infra.db.mongodb.sessions.payout_session import PayoutSession
+from app.src.infra.db.mongodb.collections.user_collection import UserCollection
+from app.src.infra.db.mongodb.collections.wallet_collection import WalletCollection
+from app.src.infra.db.mongodb.collections.payout_collection import PayoutCollection
 from app.src.repo.interface.Imock_repo import IMockRepo
-from app.src.infra.db.mongodb.sessions.payout_session import PayoutSession
+from app.src.infra.db.mongodb.collections.payout_collection import PayoutCollection
 from beanie.operators import In
 
 class MockMongodbRepo(IMockRepo):
@@ -16,10 +16,10 @@ class MockMongodbRepo(IMockRepo):
         users: list[UserModel]
     ) -> list[str]:
 
-        users_session = [ UserSession.model_validate(u, from_attributes=True) for u in users]
+        users_session = [ UserCollection.model_validate(u, from_attributes=True) for u in users]
         
         try:
-            insert = await UserSession.insert_many(users_session)
+            insert = await UserCollection.insert_many(users_session)
             return [ str(_id) for _id in insert.inserted_ids]
         except:
             return [ str(u.id) for u in users]
@@ -29,10 +29,10 @@ class MockMongodbRepo(IMockRepo):
         wallets: list[WalletModel]
     ) -> list[str]:
             
-        wallets_session = [ WalletSession.model_validate(w, from_attributes=True) for w in wallets]
+        wallets_session = [ WalletCollection.model_validate(w, from_attributes=True) for w in wallets]
 
         try:
-            insert = await WalletSession.insert_many(wallets_session)
+            insert = await WalletCollection.insert_many(wallets_session)
             return [ str(_id) for _id in insert.inserted_ids]
         except:
             return [ str(w.id) for w in wallets]
@@ -42,10 +42,10 @@ class MockMongodbRepo(IMockRepo):
         payouts: list[PayoutModel]
     ) -> list[str]:
 
-        payouts_session = [ PayoutSession.model_validate(p, from_attributes=True) for p in payouts]
+        payouts_session = [ PayoutCollection.model_validate(p, from_attributes=True) for p in payouts]
 
         try:
-            insert = await PayoutSession.insert_many(payouts_session)
+            insert = await PayoutCollection.insert_many(payouts_session)
             return [ str(_id) for _id in insert.inserted_ids]
         except:
             return [ str(p.id) for p in payouts]
@@ -57,23 +57,23 @@ class MockMongodbRepo(IMockRepo):
         
         users_id = [ u.id for u in users ]
         
-        get_users = UserSession.find(
+        get_users = UserCollection.find(
             In(
-                UserSession.id,
+                UserCollection.id,
                 users_id,
             )
         )
         
-        get_wallets = WalletSession.find(
+        get_wallets = WalletCollection.find(
             In(
-                WalletSession.user_id,
+                WalletCollection.user_id,
                 users_id,
             )
         )
         
-        get_payouts = PayoutSession.find(
+        get_payouts = PayoutCollection.find(
             In(
-                PayoutSession.user_id,
+                PayoutCollection.user_id,
                 users_id,
             )
         )

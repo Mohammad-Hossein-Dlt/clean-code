@@ -1,3 +1,5 @@
+[Implemations and changes](#implemations-and-changes)
+
 ENV File Parameters
 
 Put it next to the app
@@ -189,3 +191,33 @@ usecase/
 #### Note
 
 The layers are not limited to the mentioned items and can also include other related configurations.
+
+## Implemations and changes
+
+The items in the file **d_1.py**, except for `get_status_list_from_query`, included token generation and authentication services.
+The environment variables in the file were all moved to **.env** and are loaded through the **Setting** pydantic class in `app.src.infra.settings.settings`.
+
+For token management and validation, the **JWTHandler** pydantic class is defined in `app.src.infra.auth.jwt_handler`.
+The functions `create_jwt_token` and `verify_token`, which previously did not exist in this file and the application, are now defined in this class.
+Additionally, the `decode_token` function has been rewritten.
+
+The items included in the payload are defined in the **JWTPayload** pydantic class located in `app.src.domain.schema.auth.jwt_payload`.
+
+Since we defined `user_type` directly in the payload, the functions `check_user_is_admin` and `get_email_from_token` were no longer needed and were removed.
+The `user_type` check is now implemented as a dependency in `app.src.routs.depend.auth.depend`.
+
+The function `get_status_list_from_query` was also unrelated in this file, and because we use a **Pydantic model class** to receive data from the header, which automatically handles what this function did, it was removed.
+
+---
+
+In the file **d_2.py**, we also had database-related environment variables, which were moved to **.env** as well.
+Additionally, the database client and its collections were moved to
+`app.src.infra.db.mongodb.client.py` and `app.src.infra.db.mongodb.collections/`.
+
+The collections were defined based on the pydantic class models in `app.src.domain.schemas` and inherit from them.
+
+---
+
+In the **main.py** file, all the inputs of the defined endpoint are specified as parameters of the **PayoutFilter** class in `app.src.models.filter.payout_filter.py`.
+
+---
