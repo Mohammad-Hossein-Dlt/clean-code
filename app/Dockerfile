@@ -1,14 +1,10 @@
 FROM python:latest
 
-WORKDIR /code
+WORKDIR /app
 
-COPY . app/
+COPY . .
 
 RUN apt-get -y update
 RUN apt-get -y upgrade
 RUN pip install --upgrade pip
-RUN pip install -r ./app/requirements.txt
-
-EXPOSE 8000
-
-CMD ["fastapi", "run", "./app/src/main.py"]
+RUN pip install -r requirements.txt

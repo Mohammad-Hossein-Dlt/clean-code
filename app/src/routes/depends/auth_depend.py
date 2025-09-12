@@ -14,9 +14,9 @@ schema = OAuth2PasswordBearer(tokenUrl="/api_v1/user/login")
 
 def get_jwt_handler() -> JWTHandler:
     
-    secret = get_app_state(app, AppStates.JWT_SECRET.value)
-    algorithm = get_app_state(app, AppStates.JWT_ALGORITHM.value)
-    jwt_expiration_minutes = get_app_state(app, AppStates.JWT_EXPIRATION_MINUTES.value)
+    secret = get_app_state(app, AppStates.JWT_SECRET)
+    algorithm = get_app_state(app, AppStates.JWT_ALGORITHM)
+    jwt_expiration_minutes = get_app_state(app, AppStates.JWT_EXPIRATION_MINUTES)
     
     jwt_handler = JWTHandler(secret, algorithm, jwt_expiration_minutes)
     

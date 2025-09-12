@@ -2,6 +2,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):   
     
+    EXTERNAL_FASTAPI_PORT: int
+    INTERNAL_FASTAPI_PORT: int
     
     MONGO_HOST: str
     MONGO_PORT: int     

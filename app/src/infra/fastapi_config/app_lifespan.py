@@ -15,9 +15,13 @@ async def lifespan(app: FastAPI):
         db_name=settings.MONGO_INITDB_DATABASE
     )
     
-    set_app_state(app, AppStates.JWT_SECRET.value, settings.JWT_SECRET)
-    set_app_state(app, AppStates.JWT_ALGORITHM.value, settings.JWT_ALGORITHM)
-    set_app_state(app, AppStates.JWT_EXPIRATION_MINUTES.value, settings.JWT_EXPIRATION_MINUTES)
-    set_app_state(app, AppStates.DEFAULT_PAGE_SIZE.value, settings.DEFAULT_PAGE_SIZE)
+        
+    set_app_state(app, AppStates.EXTERNAL_FASTAPI_PORT, settings.EXTERNAL_FASTAPI_PORT)
+    set_app_state(app, AppStates.INTERNAL_FASTAPI_PORT, settings.INTERNAL_FASTAPI_PORT)
+    
+    set_app_state(app, AppStates.JWT_SECRET, settings.JWT_SECRET)
+    set_app_state(app, AppStates.JWT_ALGORITHM, settings.JWT_ALGORITHM)
+    set_app_state(app, AppStates.JWT_EXPIRATION_MINUTES, settings.JWT_EXPIRATION_MINUTES)
+    set_app_state(app, AppStates.DEFAULT_PAGE_SIZE, settings.DEFAULT_PAGE_SIZE)
             
     yield    
