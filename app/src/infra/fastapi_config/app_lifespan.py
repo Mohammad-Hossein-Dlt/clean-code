@@ -9,7 +9,7 @@ async def lifespan(app: FastAPI):
             
     await init_mongodb(
         host=settings.MONGO_HOST,
-        port=settings.MONGODB_PORT,
+        port=settings.MONGO_PORT,
         username=settings.MONGO_INITDB_ROOT_USERNAME,
         password=settings.MONGO_INITDB_ROOT_PASSWORD,
         db_name=settings.MONGO_INITDB_DATABASE
