@@ -19,7 +19,7 @@ class GetAllPayouts:
     async def execute(
         self,
         payout_filter: PayoutFilter,
-    ) -> list:
+    ) -> PayoutPaginate:
         
         try:
             if payout_filter.page:
