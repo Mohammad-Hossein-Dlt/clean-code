@@ -29,8 +29,8 @@ class GetAllPayouts:
             
             payouts_number = await self.payout_repo.count_by_filter(payout_filter)
                 
-            for payout in payouts_list:
-                if payout_filter.add_wallet:
+            if payout_filter.add_wallet:
+                for payout in payouts_list:
                     available, pending = await self.user_repo.get_balances(payout.user_id)
                     payout.availableBalance = available
                     payout.pendingBalance = pending
