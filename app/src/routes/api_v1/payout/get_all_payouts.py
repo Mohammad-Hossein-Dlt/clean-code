@@ -8,7 +8,7 @@ from app.src.routes.depends.user_repo_depend import get_user_repo
 from app.src.routes.depends.auth_depend import chech_admin_type
 from app.src.domain.schemas.auth.jwt_payload import JWTPayload
 from app.src.models.filter.payout_filter import PayoutFilter
-from app.src.usecases.payout.get_all_payout import GetAllPayouts
+from app.src.usecases.payout.get_all_payouts import GetAllPayouts
 from app.src.infra.exceptions.exceptions import AppBaseException
 
 @router.get(
