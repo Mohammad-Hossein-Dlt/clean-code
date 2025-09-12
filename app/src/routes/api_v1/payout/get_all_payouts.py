@@ -12,7 +12,7 @@ from app.src.usecases.payout.get_all_payouts import GetAllPayouts
 from app.src.infra.exceptions.exceptions import AppBaseException
 
 @router.get(
-    "/payout",
+    "/payouts",
     status_code=200,
     responses={
         **ResponseMessage.HTTP_401_UNAUTHORIZED("Authentication failed"),
