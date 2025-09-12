@@ -340,7 +340,7 @@ The collections inherit from the relevant model classes in the `domain.schemas`.
 
 ### main.py
 
-- Endpoint inputs are defined as parameters of the `PayoutFilter`
+- Endpoint inputs are defined as parameters of the `PayoutFilter`.
 
 ---
 
@@ -348,7 +348,7 @@ The collections inherit from the relevant model classes in the `domain.schemas`.
 
 - **Endpoint**:
 
-  - Inputs come as query as parameters of type `PayoutFilter` and response is given be executing the relevant usecase.
+  - Inputs come as query as parameters of type `PayoutFilter` and response is given be executing the `GetAllPayouts` usecase .
 
 - **Usecase**:
 
@@ -358,7 +358,10 @@ The collections inherit from the relevant model classes in the `domain.schemas`.
 
   - If the incoming request expects payouts along with wallet → handled by `get_balances`.
 
-    - `get_all_by_filter` & `count_by_filter` defined in payout repository
-    - `get_balances` defined in user repository
+  **Repositories used in this usescase**
+
+  - `get_all_by_filter` & `count_by_filter` defined in payout repository.
+
+  - `get_balances` defined in user repository.
 
 - Final result returned as a `PayoutPaginate` isinstance.
