@@ -22,9 +22,10 @@ def get_jwt_handler() -> JWTHandler:
     
     return jwt_handler
 
-def get_authenticated_token_payload(
+async def get_authenticated_token_payload(
     jwt_handler: JWTHandler = Depends(get_jwt_handler),
     token: str = Depends(schema),
+    user_repo: IUserRepo = Depends(get_user_repo),
 ) -> JWTPayload:
     
     try:
@@ -33,16 +34,17 @@ def get_authenticated_token_payload(
         raise HTTPException(status_code=ex.status_code, detail=ex.message)
     
     if jwt_handler.is_token_valid(payload.model_dump()):
-        return payload
+        get_user_usecase = GetUser(user_repo)
+        user = await get_user_usecase.execute(payload.user_id)
+        if user:
+            return payload
+        
+        raise HTTPException(status_code=404, detail="User not found")
     
     raise HTTPException(status_code=401, detail="Token expired")
 
 async def chech_admin_type(
-    user_repo: IUserRepo = Depends(get_user_repo),
     payload: JWTPayload = Depends(get_authenticated_token_payload)
 ):
-    get_user_usecase = GetUser(user_repo)
-    user = await get_user_usecase.execute(payload.user_id)
-    
-    if user.user_type != UserType.admin.value:
+    if payload.user_type != UserType.admin.value:
         raise HTTPException(status_code=403, detail="Access denied. You are not admin")

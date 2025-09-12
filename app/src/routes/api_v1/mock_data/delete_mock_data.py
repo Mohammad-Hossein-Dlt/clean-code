@@ -10,7 +10,7 @@ from app.src.usecases.mock_data.delete_mock_data import DeleteMockData
 from app.src.infra.exceptions.exceptions import AppBaseException
 
 
-@router.post(
+@router.delete(
     "/delete",
     status_code=200,
     responses={
