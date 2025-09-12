@@ -191,8 +191,6 @@ routes/
 In this layer, the application’s business logic is defined.
 This layer acts as an important bridge between endpoints in the Routes layer, the database in the Repo layer, and external APIs in the Infra layer.
 
-One of the implementen logics is the token refresh mechanism.
-
 ```
 usecase/
 ├── <usecase_group_name>/
