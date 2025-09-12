@@ -278,7 +278,7 @@ Finally, the retrieved and processed data is returned as a **`PayoutPaginate`** 
 
 ## Files and Paths
 
-- **Setting** -> as class -> `infra.settings.settings.py`
+- **Settings** -> as class -> `infra.settings.settings.py`
 
 - **JWTPayload** -> as class -> `infra.auth.jwt_handler.py`
 
