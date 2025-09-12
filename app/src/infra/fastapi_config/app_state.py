@@ -10,6 +10,7 @@ class AppStates(str, Enum):
     JWT_SECRET = "auth_base_url"
     JWT_ALGORITHM = "auth_db_client"
     JWT_EXPIRATION_MINUTES = "jwt_expiration_minutes"
+    
     DEFAULT_PAGE_SIZE = "default_page_size"
 
 def set_app_state(app: FastAPI, key, value: Any):

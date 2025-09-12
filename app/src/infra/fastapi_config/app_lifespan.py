@@ -22,6 +22,7 @@ async def lifespan(app: FastAPI):
     set_app_state(app, AppStates.JWT_SECRET, settings.JWT_SECRET)
     set_app_state(app, AppStates.JWT_ALGORITHM, settings.JWT_ALGORITHM)
     set_app_state(app, AppStates.JWT_EXPIRATION_MINUTES, settings.JWT_EXPIRATION_MINUTES)
+    
     set_app_state(app, AppStates.DEFAULT_PAGE_SIZE, settings.DEFAULT_PAGE_SIZE)
             
     yield    
