@@ -30,5 +30,4 @@ async def all_payout(
         get_all_payouts_usecase = GetAllPayouts(payout_repo, user_repo)
         return await get_all_payouts_usecase.execute(payout_filter)
     except AppBaseException as ex:
-        raise
         raise HTTPException(status_code=ex.status_code, detail=str(ex))
