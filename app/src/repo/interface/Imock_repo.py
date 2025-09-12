@@ -7,20 +7,32 @@ from app.src.domain.schemas.payout.payout_model import PayoutModel
 class IMockRepo(ABC):
     
     @abstractmethod
-    def insert_many_users(users: list[UserModel]) -> bool:
+    def insert_many_users(
+        users: list[UserModel],
+    ) -> bool:
+    
         raise NotImplementedError
     
     @abstractmethod
-    def insert_many_wallets(wallets: list[WalletModel]) -> bool:
+    def insert_many_wallets(
+        wallets: list[WalletModel],
+    ) -> bool:
+    
         raise NotImplementedError    
         
     @abstractmethod
-    def insert_many_payout(payouts: list[PayoutModel]) -> bool:
+    def insert_many_payout(
+        payouts: list[PayoutModel],
+    ) -> bool:
+    
         raise NotImplementedError    
     
             
     @abstractmethod
-    def delete_mock_data(users: list[UserModel]) -> bool:
+    def delete_mock_data(
+        users: list[UserModel],
+    ) -> bool:
+    
         raise NotImplementedError    
     
     

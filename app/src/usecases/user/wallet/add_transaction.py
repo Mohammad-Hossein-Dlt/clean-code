@@ -14,10 +14,11 @@ class AddTransaction:
     async def execute(
         self,
         user_id: str,
+        wallet_id: str,
         transaction: TransactionModel,
     ) -> WalletModel:
         
         try:
-            return await self.user_repo.add_transaction(user_id, TransactionModel.model_validate(transaction, from_attributes=True))
+            return await self.user_repo.add_transaction(user_id, wallet_id, TransactionModel.model_validate(transaction, from_attributes=True))
         except:
             raise OperationFailureException(500, "Internal server error")  

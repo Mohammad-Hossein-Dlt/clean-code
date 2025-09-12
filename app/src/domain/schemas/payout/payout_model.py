@@ -11,6 +11,7 @@ def snake_to_camel(snake_str: str):
 
 class PayoutModel(BaseModel):
     id: PydanticObjectId = Field(default_factory=ObjectId, alias="_id")
+    affiliate_tracking_id: PydanticObjectId = Field(default_factory=ObjectId, alias="affiliate_tracking_id")
     user_id: PydanticObjectId
     user_type: UserType = UserType.reqular
     amount: float

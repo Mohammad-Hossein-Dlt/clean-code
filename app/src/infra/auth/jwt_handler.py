@@ -41,8 +41,11 @@ class JWTHandler:
         
         now = datetime.now(timezone.utc).replace(microsecond=0)
         expiration_time: datetime = payload.get("exp", 0)
+        
+        print(now)
+        print(expiration_time)
                 
-        if (not expiration_time) and (expiration_time.time() < now.time()):
+        if (not expiration_time) or (expiration_time.astimezone(timezone.utc) < now):
             return False
 
         return True

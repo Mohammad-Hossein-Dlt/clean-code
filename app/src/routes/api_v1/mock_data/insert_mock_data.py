@@ -1,4 +1,4 @@
-from app.src.routes.api_v1.mock_data._router import router
+from ._router import router
 from fastapi import HTTPException, Depends
 from app.src.routes.http_response.responses import ResponseMessage
 from app.src.domain.schemas.auth.jwt_payload import JWTPayload

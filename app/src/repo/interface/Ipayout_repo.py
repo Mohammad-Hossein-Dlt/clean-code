@@ -9,10 +9,16 @@ class IPayoutRepo(ABC):
         self.page_size = page_size  
     
     @abstractmethod
-    def count_by_filter(payout_filter: PayoutFilter) -> int:
+    def count_by_filter(
+        payout_filter: PayoutFilter,
+    ) -> int:
+    
         raise NotImplementedError
     
     @abstractmethod
-    def get_all_by_filter(payout_filter: PayoutFilter) -> list[PayoutModel]:
+    def get_all_by_filter(
+        payout_filter: PayoutFilter,
+    ) -> list[PayoutModel]:
+    
         raise NotImplementedError
     

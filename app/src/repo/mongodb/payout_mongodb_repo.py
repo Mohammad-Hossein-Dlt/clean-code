@@ -1,5 +1,5 @@
-from app.src.domain.schemas.payout.payout_model import PayoutModel
 from app.src.repo.interface.Ipayout_repo import IPayoutRepo
+from app.src.domain.schemas.payout.payout_model import PayoutModel
 from app.src.infra.db.mongodb.collections.payout_collection import PayoutCollection
 from app.src.models.filter.payout_filter import PayoutFilter
 

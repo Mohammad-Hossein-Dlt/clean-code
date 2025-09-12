@@ -48,19 +48,8 @@ def create_mock_data(
             date_available=faker.date_time_between(start_date=wallet.created, end_date=end_date, tzinfo=timezone.utc)
             ) for _ in range(random.randint(1, 5))
         ]
-
-        available_balance = 0
-        pending_balance = 0
-
-        for trns in transactions:
-            if trns.date_available.time() <= datetime.now(timezone.utc).time():
-                available_balance += trns.amount
-            else:
-                pending_balance += trns.amount
                 
         wallet.transactions = transactions
-        wallet.available_balance = available_balance
-        wallet.pending_balance = pending_balance
         
         wallets.append(wallet)
         

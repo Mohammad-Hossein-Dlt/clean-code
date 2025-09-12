@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from app.src.routes.api_v1.user.user._router import router as management_router
-from app.src.routes.api_v1.user.wallet._router import router as wallet_router
+from .user._router import router as management_router
+from .wallet._router import router as wallet_router
 
 router = APIRouter(
     prefix="/user",

@@ -5,10 +5,10 @@ from app.src.infra.fastapi_config.app import app
 from app.src.infra.fastapi_config.app_state import AppStates, get_app_state
 from app.src.infra.auth.jwt_handler import JWTHandler
 from app.src.usecases.user.user.get_user import GetUser
-from app.src.repo.interface.Iuser_repo import IUserRepo
-from app.src.routes.depends.user_repo_depend import get_user_repo
 from app.src.domain.enums import UserType
 from app.src.infra.exceptions.exceptions import AppBaseException
+from app.src.repo.interface.Iuser_repo import IUserRepo
+from .user_repo_depend import get_user_repo
 
 schema = OAuth2PasswordBearer(tokenUrl="/api_v1/user/login")
 

@@ -24,19 +24,19 @@ class LoginUser:
     ) -> LoginUserOutput:
         
         try:
-            user: UserModel = await self.user_repo.get_user_by_username(user.username)
+            get_user: UserModel = await self.user_repo.get_user_by_username(user.username)
         except:
             raise OperationFailureException(500, "Internal server error")  
         
-        if not user:
+        if not get_user:
             raise EntityNotFoundError(status_code=404, message="User not found")
         
-        if not user.password == user.password:
+        if not user.password == get_user.password:
             raise AuthenticationException(status_code=400, message="Invalid credentials")
         
         payload = JWTPayload(
-            user_id = str(user.id),
-            user_type= user.user_type,
+            user_id = str(get_user.id),
+            user_type= get_user.user_type,
         )
         token = self.jwt_handler.create_jwt_token(payload)
         

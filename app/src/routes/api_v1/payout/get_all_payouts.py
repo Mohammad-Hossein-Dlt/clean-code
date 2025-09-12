@@ -1,4 +1,4 @@
-from app.src.routes.api_v1.payout._router import router
+from ._router import router
 from fastapi import Depends, HTTPException, Query
 from app.src.routes.http_response.responses import ResponseMessage
 from app.src.repo.interface.Ipayout_repo import IPayoutRepo
@@ -30,4 +30,5 @@ async def all_payout(
         get_all_payouts_usecase = GetAllPayouts(payout_repo, user_repo)
         return await get_all_payouts_usecase.execute(payout_filter)
     except AppBaseException as ex:
+        raise
         raise HTTPException(status_code=ex.status_code, detail=str(ex))

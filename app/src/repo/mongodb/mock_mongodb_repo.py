@@ -1,10 +1,9 @@
+from app.src.repo.interface.Imock_repo import IMockRepo
 from app.src.domain.schemas.user.user_model import UserModel
 from app.src.domain.schemas.user.wallet_model import WalletModel
 from app.src.domain.schemas.payout.payout_model import PayoutModel
 from app.src.infra.db.mongodb.collections.user_collection import UserCollection
 from app.src.infra.db.mongodb.collections.wallet_collection import WalletCollection
-from app.src.infra.db.mongodb.collections.payout_collection import PayoutCollection
-from app.src.repo.interface.Imock_repo import IMockRepo
 from app.src.infra.db.mongodb.collections.payout_collection import PayoutCollection
 from beanie.operators import In
 

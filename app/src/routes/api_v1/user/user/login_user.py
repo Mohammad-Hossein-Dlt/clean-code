@@ -1,4 +1,4 @@
-from app.src.routes.api_v1.user.user._router import router
+from ._router import router
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from app.src.routes.http_response.responses import ResponseMessage

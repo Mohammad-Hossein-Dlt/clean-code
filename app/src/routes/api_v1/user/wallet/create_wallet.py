@@ -1,4 +1,4 @@
-from app.src.routes.api_v1.user.wallet._router import router 
+from ._router import router 
 from fastapi import Depends, HTTPException
 from app.src.routes.http_response.responses import ResponseMessage
 from app.src.domain.schemas.auth.jwt_payload import JWTPayload

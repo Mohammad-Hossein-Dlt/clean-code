@@ -1,4 +1,4 @@
-from app.src.routes.api_v1.user.user._router import router
+from ._router import router
 from fastapi import Depends, HTTPException
 from app.src.routes.http_response.responses import ResponseMessage
 from app.src.models.schemas.user.create_user_input import CreateUserInput

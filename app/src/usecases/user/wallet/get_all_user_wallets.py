@@ -2,7 +2,7 @@ from app.src.repo.interface.Iuser_repo import IUserRepo
 from app.src.domain.schemas.user.wallet_model import WalletModel
 from app.src.infra.exceptions.exceptions import OperationFailureException
 
-class GetWallet:
+class GetAllUserWallets:
     
     def __init__(
         self,
@@ -14,9 +14,9 @@ class GetWallet:
     async def execute(
         self,
         user_id: str,
-    ) -> WalletModel:
+    ) -> list[WalletModel]:
         
         try:
-            return await self.user_repo.get_user_wallet(user_id)
+            return await self.user_repo.get_all_user_wallets(user_id)
         except:
-            raise OperationFailureException(500, "Internal server error")  
+            raise OperationFailureException(500, "Internal server error")
