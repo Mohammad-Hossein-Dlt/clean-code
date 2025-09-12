@@ -3,7 +3,7 @@ from app.src.models.schemas.payout.payout_paginate import PayoutPaginate
 from app.src.repo.interface.Ipayout_repo import IPayoutRepo
 from app.src.repo.interface.Iuser_repo import IUserRepo
 from app.src.domain.schemas.payout.payout_model import PayoutModel
-from app.src.infra.exception.exceptions import OperationFailureException
+from app.src.infra.exceptions.exceptions import OperationFailureException
 
 class GetAllPayouts:
     

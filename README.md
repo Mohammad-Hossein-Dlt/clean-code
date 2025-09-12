@@ -21,7 +21,7 @@ DEFAULT_PAGE_SIZE = 3
 To Run
 
 ```
-fastapi dev .\src\main.py
+fastapi dev app/src/main.py
 ```
 
 ## App architecture description
@@ -30,29 +30,46 @@ fastapi dev .\src\main.py
 
 In this layer, the application infrastructure is defined, such as:
 
+- Authentication utilities such as token creation, management, and validation
+
+- Database client and its models (tables)
+
+- Errors related to this layer and other layers
+
+  - include status code and message
+
+- Services for interacting with external APIs
+
+  - include interfaces and their implementation
+
 - Fastapi config such as
+
   - middleware
-  - tasks that should be run on startup or shutdown,
+  - tasks that should be run on startup or shutdown such as create and close database client
   - implement some states based on settings loaded from .env in main app to have access them throughout the entire project
+
+- Mixin classes
+
 - Application settings load from the `.env` file
   - load with pydantic_settings
-- Services for interacting with external APIs
-  - include interfaces and their implementation
-- Errors related to this layer and other layers
-  - include status code and message
-- Database and its models (tables)
-- Mixin classes
 
 ```
 infra/
+│
+├── auth/
+│   └── <files or directories...>
+│
 ├── db/
 │   ├── redis/
 │   │   └── <files or directories...>
 │   │
-│   └── service/
+│   ├── mongodb/
+│   │   └── <files or directories...>
+│   │
+│   └── sqlite/
 │       └── <files or directories...>
 │
-├── exception/
+├── exceptions/
 │   └── <files...>
 │
 ├── external_api/
@@ -78,15 +95,12 @@ In this layer, data models are defined that are only used inside the application
 
 ```
 domain/
+├── mock_data/
+│   └── <files...>
+│
 └── schemas/
-    ├── <schema_group_name>/
-    │   └── <files...>
-    │
-    ├── <schema_group_name>/
-    │   └── <files...>
-    │
     └── <schema_group_name>/
-        └── <files...>
+       └── <files...>
 ```
 
 ### Models Layer
@@ -95,15 +109,13 @@ In this layer, data models are defined that are only used for receiving or sendi
 
 ```
 models/
+├── filter/
+│   └── <files...>
+│
 └── schemas/
-    ├── <schema_group_name>/
-    │   └── <files...>
-    │
-    ├── <schema_group_name>/
-    │   └── <files...>
-    │
     └── <schema_group_name>/
         └── <files...>
+
 ```
 
 ### Repo Layer
@@ -117,6 +129,7 @@ Interfaces define the structure of database communication, so we can have multip
 repo/
 ├── interface/
 │   └── <files...>
+│
 └── <implementation_name>/
     └── <files...>
 ```
@@ -129,8 +142,10 @@ Naming implementations can be based on:
 repo/
 ├── interface/
 │   └── <files...>
+│
 ├── sql/
 │   └── <files...>
+│
 └── nosql/
     └── <files...>
 ```
@@ -141,8 +156,10 @@ repo/
 repo/
 ├── interface/
 │   └── <files...>
+│
 ├── postgresql/
 │   └── <files...>
+│
 └── mongodb/
     └── <files...>
 ```
@@ -178,9 +195,6 @@ One of the implementen logics is the token refresh mechanism.
 
 ```
 usecase/
-├── <usecase_group_name>/
-│   └── <files...>
-│
 ├── <usecase_group_name>/
 │   └── <files...>
 │

@@ -1,5 +1,5 @@
 from app.src.repo.interface.Iuser_repo import IUserRepo
-from app.src.infra.exception.exceptions import OperationFailureException
+from app.src.infra.exceptions.exceptions import OperationFailureException
 
 class DeleteUser:
     

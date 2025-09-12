@@ -7,7 +7,7 @@ from app.src.routes.depends.auth_depend import chech_admin_type
 from app.src.routes.depends.mock_repo_depend import get_mock_repo
 from app.src.domain.mock_data.mock_data import mock_users, mock_wallets, mock_payouts
 from app.src.usecases.mock_data.insert_mock_data import InsertMockData
-from app.src.infra.exception.exceptions import AppBaseException
+from app.src.infra.exceptions.exceptions import AppBaseException
 
 @router.post(
     "/insert",

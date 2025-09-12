@@ -4,7 +4,7 @@ from app.src.domain.schemas.user.user_model import UserModel
 from app.src.repo.interface.Iuser_repo import IUserRepo
 from app.src.infra.auth.jwt_handler import JWTHandler
 from app.src.domain.schemas.auth.jwt_payload import JWTPayload
-from app.src.infra.exception.exceptions import OperationFailureException
+from app.src.infra.exceptions.exceptions import OperationFailureException
 
 class CreateUser:
     

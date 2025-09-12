@@ -7,7 +7,7 @@ from app.src.repo.interface.Iuser_repo import IUserRepo
 from app.src.routes.depends.auth_depend import get_authenticated_token_payload
 from app.src.routes.depends.user_repo_depend import get_user_repo
 from app.src.usecases.user.wallet.add_transaction import AddTransaction 
-from app.src.infra.exception.exceptions import AppBaseException
+from app.src.infra.exceptions.exceptions import AppBaseException
 
 @router.put(
     "/transaction/add",

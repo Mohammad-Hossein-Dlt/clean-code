@@ -1,6 +1,6 @@
 from app.src.repo.interface.Imock_repo import IMockRepo
 from app.src.domain.schemas.user.user_model import UserModel
-from app.src.infra.exception.exceptions import OperationFailureException
+from app.src.infra.exceptions.exceptions import OperationFailureException
 
 class DeleteMockData:
     

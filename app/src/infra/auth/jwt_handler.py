@@ -1,6 +1,6 @@
 import jwt
 from app.src.domain.schemas.auth.jwt_payload import JWTPayload
-from app.src.infra.exception.exceptions import InvalidTokenException
+from app.src.infra.exceptions.exceptions import InvalidTokenException
 from datetime import datetime, timezone, timedelta
 
 
@@ -34,7 +34,7 @@ class JWTHandler:
         
         return JWTPayload.model_validate(payload)
     
-    def verify_jwt_token(
+    def is_token_valid(
         self,
         payload: dict,
     ) -> bool:

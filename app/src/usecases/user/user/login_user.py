@@ -4,8 +4,8 @@ from app.src.models.schemas.user.login_user_input import LoginUserInput
 from app.src.models.schemas.user.login_user_output import LoginUserOutput
 from app.src.infra.auth.jwt_handler import JWTHandler
 from app.src.domain.schemas.auth.jwt_payload import JWTPayload
-from app.src.infra.exception.exceptions import AuthenticationException, EntityNotFoundError
-from app.src.infra.exception.exceptions import OperationFailureException
+from app.src.infra.exceptions.exceptions import AuthenticationException, EntityNotFoundError
+from app.src.infra.exceptions.exceptions import OperationFailureException
 
 class LoginUser:
     

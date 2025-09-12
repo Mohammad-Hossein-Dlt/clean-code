@@ -8,7 +8,7 @@ from app.src.usecases.user.user.get_user import GetUser
 from app.src.repo.interface.Iuser_repo import IUserRepo
 from app.src.routes.depends.user_repo_depend import get_user_repo
 from app.src.domain.enums import UserType
-from app.src.infra.exception.exceptions import AppBaseException
+from app.src.infra.exceptions.exceptions import AppBaseException
 
 schema = OAuth2PasswordBearer(tokenUrl="/api_v1/user/login")
 
@@ -32,7 +32,7 @@ def get_authenticated_token_payload(
     except AppBaseException as ex:
         raise HTTPException(status_code=ex.status_code, detail=ex.message)
     
-    if jwt_handler.verify_jwt_token(payload.model_dump()):
+    if jwt_handler.is_token_valid(payload.model_dump()):
         return payload
     
     raise HTTPException(status_code=401, detail="Token expired")

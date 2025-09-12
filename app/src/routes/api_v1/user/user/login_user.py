@@ -8,7 +8,7 @@ from app.src.repo.interface.Iuser_repo import IUserRepo
 from app.src.routes.depends.user_repo_depend import get_user_repo
 from app.src.infra.auth.jwt_handler import JWTHandler
 from app.src.routes.depends.auth_depend import get_jwt_handler
-from app.src.infra.exception.exceptions import AppBaseException
+from app.src.infra.exceptions.exceptions import AppBaseException
 
 
 @router.post(

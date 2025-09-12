@@ -2,7 +2,7 @@ from app.src.domain.schemas.payout.payout_model import PayoutModel
 from app.src.domain.schemas.user.wallet_model import WalletModel
 from app.src.repo.interface.Imock_repo import IMockRepo
 from app.src.domain.schemas.user.user_model import UserModel
-from app.src.infra.exception.exceptions import OperationFailureException
+from app.src.infra.exceptions.exceptions import OperationFailureException
 
 class InsertMockData:
     

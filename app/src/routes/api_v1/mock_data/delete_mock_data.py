@@ -7,7 +7,7 @@ from app.src.domain.schemas.auth.jwt_payload import JWTPayload
 from app.src.repo.interface.Ipayout_repo import IPayoutRepo
 from app.src.domain.mock_data.mock_data import mock_users
 from app.src.usecases.mock_data.delete_mock_data import DeleteMockData
-from app.src.infra.exception.exceptions import AppBaseException
+from app.src.infra.exceptions.exceptions import AppBaseException
 
 
 @router.post(

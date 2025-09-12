@@ -6,7 +6,7 @@ from app.src.repo.interface.Iuser_repo import IUserRepo
 from app.src.routes.depends.auth_depend import get_authenticated_token_payload
 from app.src.routes.depends.user_repo_depend import get_user_repo
 from app.src.usecases.user.user.get_user import GetUser
-from app.src.infra.exception.exceptions import AppBaseException
+from app.src.infra.exceptions.exceptions import AppBaseException
 
 @router.get(
     "/get/me",
