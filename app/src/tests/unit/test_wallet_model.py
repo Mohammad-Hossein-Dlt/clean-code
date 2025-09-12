@@ -1,8 +1,8 @@
-from datetime import datetime, timedelta, timezone
 import unittest
+from datetime import datetime, timedelta, timezone
 from app.src.domain.schemas.user.wallet_model import WalletModel
 
-class TestWalletModel:
+class WalletModelTest:
     
     def test_validation(self, sample: dict):
         
@@ -13,7 +13,7 @@ class TestWalletModel:
         
 
 
-class WalletTestExample(unittest.TestCase):
+class WalletModelTestExample(unittest.TestCase):
     
     def setUp(self):
         
@@ -49,7 +49,7 @@ class WalletTestExample(unittest.TestCase):
             "updated": updated,
         }
                         
-        self.test_model = TestWalletModel()
+        self.test_model = WalletModelTest()
         
         return super().setUp()
     

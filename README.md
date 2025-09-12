@@ -30,7 +30,7 @@ fastapi dev app/src/main.py
 To run unit tests:
 
 ```
-
+python -m app.src.tests.unit.run_tests
 ```
 
 ## App architecture description

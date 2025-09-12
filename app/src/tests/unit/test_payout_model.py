@@ -1,19 +1,19 @@
-from datetime import datetime, timedelta, timezone
 import unittest
+from datetime import datetime, timedelta, timezone
 from app.src.domain.schemas.payout.payout_model import PayoutModel
 
-class TestPayoutModel:
+class PayoutModelTest:
     
     def test_validation(self, sample: dict):
         
-        wallet = PayoutModel(**sample)
-        wallet_dict = wallet.model_dump(by_alias=True, mode="json", exclude_unset=True)
+        payout = PayoutModel(**sample)
+        payout_dict = payout.model_dump(by_alias=True, mode="json", exclude_unset=True)
                                         
-        return wallet_dict
+        return payout_dict
         
 
 
-class PayoutTestExample(unittest.TestCase):
+class PayoutModelTestExample(unittest.TestCase):
     
     def setUp(self):
         
@@ -36,7 +36,7 @@ class PayoutTestExample(unittest.TestCase):
             "created": created,
         }
                                 
-        self.test_model = TestPayoutModel()
+        self.test_model = PayoutModelTest()
         
         return super().setUp()
     

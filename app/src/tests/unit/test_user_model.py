@@ -5,7 +5,7 @@ from datetime import datetime, timedelta, timezone
 from faker import Faker
 import random
 
-class TestUserModel:
+class UserModelTest:
     
     def test_validation(self, sample: dict):
         
@@ -16,7 +16,7 @@ class TestUserModel:
         
 
 
-class UserTestExample(unittest.TestCase):
+class UserModelTestExample(unittest.TestCase):
     
     def setUp(self):
 
@@ -39,7 +39,7 @@ class UserTestExample(unittest.TestCase):
             "updated": updated,
         }
         
-        self.test_model = TestUserModel()
+        self.test_model = UserModelTest()
         
         return super().setUp()
     
