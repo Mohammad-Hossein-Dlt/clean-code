@@ -286,9 +286,9 @@ Finally, the retrieved and processed data is returned as a **`PayoutPaginate`** 
 
 - **Auth dependencies** -> as functions -> `routs.depend.auth_depend.py`
 
-- **Mongo db client** -> as isinstance of `AsyncMongoClient` of pymongo -> `infra.db.mongodb.client.py`
+- **Mongodb client** -> as isinstance of `AsyncMongoClient` of pymongo -> `infra.db.mongodb.client.py`
 
-- **Mongo db collections** -> as class models -> `infra.db.mongodb.collections/`
+- **Mongodb collections** -> as class models -> `infra.db.mongodb.collections/`
 
 - **Repositories** -> as class model -> `repo.mongodb/`
 
