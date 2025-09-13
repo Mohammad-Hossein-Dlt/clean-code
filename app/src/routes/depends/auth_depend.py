@@ -43,7 +43,7 @@ async def get_authenticated_token_payload(
     
     raise HTTPException(status_code=401, detail="Token expired")
 
-async def chech_admin_type(
+def check_admin_access(
     payload: JWTPayload = Depends(get_authenticated_token_payload)
 ):
     if payload.user_type != UserType.admin.value:

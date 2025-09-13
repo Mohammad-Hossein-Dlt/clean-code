@@ -2,7 +2,7 @@ from ._router import router
 from fastapi import HTTPException, Depends
 from app.src.routes.http_response.responses import ResponseMessage
 from app.src.routes.depends.mock_repo_depend import get_mock_repo
-from app.src.routes.depends.auth_depend import chech_admin_type
+from app.src.routes.depends.auth_depend import check_admin_access
 from app.src.domain.schemas.auth.jwt_payload import JWTPayload
 from app.src.repo.interface.Ipayout_repo import IPayoutRepo
 from app.src.domain.mock_data.mock_data import mock_users
@@ -21,7 +21,7 @@ from app.src.infra.exceptions.exceptions import AppBaseException
 )
 async def delete_mock_payouts(
     mock_repo: IPayoutRepo = Depends(get_mock_repo),
-    admin: JWTPayload = Depends(chech_admin_type),
+    admin: JWTPayload = Depends(check_admin_access),
 ):
     try:
         delete_mock_data_usecase = DeleteMockData(mock_repo)

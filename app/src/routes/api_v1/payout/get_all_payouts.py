@@ -5,7 +5,7 @@ from app.src.repo.interface.Ipayout_repo import IPayoutRepo
 from app.src.repo.interface.Iuser_repo import IUserRepo
 from app.src.routes.depends.payout_repo_depend import get_payout_repo
 from app.src.routes.depends.user_repo_depend import get_user_repo
-from app.src.routes.depends.auth_depend import chech_admin_type
+from app.src.routes.depends.auth_depend import check_admin_access
 from app.src.domain.schemas.auth.jwt_payload import JWTPayload
 from app.src.models.filter.payout_filter import PayoutFilter
 from app.src.usecases.payout.get_all_payouts import GetAllPayouts
@@ -24,7 +24,7 @@ async def all_payout(
     payout_filter: PayoutFilter = Query(None),
     payout_repo: IPayoutRepo = Depends(get_payout_repo),
     user_repo: IUserRepo = Depends(get_user_repo),
-    admin: JWTPayload = Depends(chech_admin_type)
+    admin: JWTPayload = Depends(check_admin_access)
 ):
     try:
         get_all_payouts_usecase = GetAllPayouts(payout_repo, user_repo)

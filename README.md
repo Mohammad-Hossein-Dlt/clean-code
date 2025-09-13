@@ -1,5 +1,7 @@
 [Implemations and changes](#implementations-and-changes)
 
+[Mock data (insert with python)](#mock-data)
+
 [Unit test](#unit-tests)
 
 ENV File Parameters
@@ -209,65 +211,6 @@ usecase/
 
 The layers are not limited to the mentioned items and can also include other related configurations.
 
-<!-- ## Implemations and changes
-
-The items in the file **d_1.py**, except for `get_status_list_from_query`, included token generation and authentication services.
-The environment variables in the file were all moved to **.env** and are loaded through the **Setting** pydantic class in `infra.settings.settings`.
-
-For token management and validation, the **JWTHandler** pydantic class is defined in `infra.auth.jwt_handler`.
-The functions `create_jwt_token` and `verify_token`, which previously did not exist in this file and the application, are now defined in this class.
-Additionally, the `decode_token` function has been rewritten.
-
-The items included in the payload are defined in the **JWTPayload** pydantic class located in `domain.schema.auth.jwt_payload`.
-
-Since we defined `user_type` directly in the payload, the functions `check_user_is_admin` and `get_email_from_token` were no longer needed and were removed.
-The `user_type` check is now implemented as a dependency in `routs.depend.auth.depend`.
-
-The function `get_status_list_from_query` was also unrelated in this file, and because we use a **Pydantic model class** to receive data from the header, which automatically handles what this function did, it was removed.
-
----
-
-In the file **d_2.py**, we also had database-related environment variables, which were moved to **.env** as well.
-Additionally, the database client and its collections were moved to
-`infra.db.mongodb.client.py` and `infra.db.mongodb.collections/`.
-
-The collections were defined based on the pydantic class models in `domain.schemas` and inherit from them.
-
----
-
-In the **main.py** file, all the inputs of the defined endpoint are specified as parameters of the **PayoutFilter** class in `models.filter.payout_filter.py`.
-
----
-
-The pagination process is divided into several parts, each placed in different layers.
-
-The first part is the **endpoint**, located at:
-`routes.api_v1.payout.get_all_payouts.py`
-
-The endpoint receives inputs as **query parameters**, all of which are defined as variable parameters of type **`PayoutFilter`**.
-This class is defined in:
-`models.filter.payout_filter`
-
-After the endpoint, the **use case** for pagination based on the filters is executed.
-This class is located in:
-`usecases.payout.get_all_payouts`
-
-First, using the methods **`get_all_by_filter`** and **`count_by_filter`**, both the documents and their total count are fetched from the database.
-This fetching process works as follows:
-
-- First a query is created using the **`create_query_by_filter`** method in the **`PayoutCollection`** class.
-- The rest of the steps are then carried out accordingly.
-
-If the incoming request expects **payouts along with wallet**, this is handled by the **`get_balances`** method.
-
-- The methods **`get_all`** and **`count_by`** belong to the **payout repository**.
-- The **`get_balances`** method belongs to the **user repository**.
-  Each of these are defined in their respective repository classes.
-
-Finally, the retrieved and processed data is returned as a **`PayoutPaginate`** response object.
-
---- -->
-
 ## Implementations and Changes
 
 ### Deploy and run with **docker compose**
@@ -295,6 +238,8 @@ Finally, the retrieved and processed data is returned as a **`PayoutPaginate`** 
 - **Payouts endpoint** -> as fastapi endpoint -> `routes.api_v1.payout.get_all_payouts.py`
 
 - **GetAllPayouts** -> as usecase class -> `usecases.payout.get_all_payouts.py`
+
+- **Mock/Test data** -> as list of documents -> `domain.mock_data.mock_data.py`
 
 The collections inherit from the relevant model classes in the `domain.schemas`.
 
@@ -362,6 +307,18 @@ The collections inherit from the relevant model classes in the `domain.schemas`.
 
 - Final result returned as a `PayoutPaginate` isinstance.
   - The `snake_to_camel` function was added to `PayoutModel` as an `alias_generator` so that it can be used in the simplest way when assigning values to the `results` parameter in `PayoutPaginate`.
+
+## Mock data
+
+To insert test data into the database with python, related **endpoints** have been defined, which are accessible **only to the admin**. In other words, just like the `payouts` endpoint, these endpoints depend on the `check_admin_access` dependency.
+
+Test data is generated for three collections: **User**, **Wallet**, and **Payout**, during the **initial system startup**.
+
+Since this data is recreated each time the system restarts, **new IDs** are also generated for every document. To ensure that test data remains easily accessible, a list of **predefined IDs** has been included.
+
+Because documents in the **Wallet** and **Payout** collections are linked to the **User** collection via the `user_id` field, these predefined IDs are used **only for user IDs**. For other parameters of type **ObjectId**, new IDs are generated each time.
+
+---
 
 ## Unit tests
 
