@@ -25,7 +25,6 @@ class BaseModelTest:
                                                         
         return model_dict
 
-
 class PayoutFilterTestExample(unittest.TestCase):
 
     def setUp(self):

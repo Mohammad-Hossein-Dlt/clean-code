@@ -17,6 +17,7 @@ class GetAllUserWallets:
     ) -> list[WalletModel]:
         
         try:
-            return await self.user_repo.get_all_user_wallets(user_id)
+            all_wallets: list[WalletModel] = await self.user_repo.get_all_user_wallets(user_id)
+            return [ wallet.model_dump(mode="json") for wallet in all_wallets ]
         except:
             raise OperationFailureException(500, "Internal server error")

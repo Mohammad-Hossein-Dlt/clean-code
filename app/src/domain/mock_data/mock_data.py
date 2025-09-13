@@ -3,13 +3,27 @@ from app.src.domain.schemas.user.user_model import UserModel
 from app.src.domain.schemas.user.wallet_model import TransactionModel, WalletModel
 from app.src.domain.schemas.payout.payout_model import PayoutModel
 from app.src.domain.enums import PaymentMethod, PayoutStatus, UserType
+from bson.objectid import ObjectId
 from datetime import datetime, timezone, timedelta
 from faker import Faker
 
 faker = Faker()
 
+object_ids = [
+    "64f8a7c12b9e4f00123a4567",
+    "64f8a7c12b9e4f00123a4568",
+    "64f8a7c12b9e4f00123a4569",
+    "64f8a7c12b9e4f00123a4570",
+    "64f8a7c12b9e4f00123a4571",
+    "64f8a7c12b9e4f00123a4572",
+    "64f8a7c12b9e4f00123a4573",
+    "64f8a7c12b9e4f00123a4574",
+    "64f8a7c12b9e4f00123a4575",
+    "64f8a7c12b9e4f00123a4576"
+]
+
 def create_mock_data(
-    mock_users_number: int = 5,
+    user_ids: list[str],
 ) -> tuple[
     list[UserModel],
     list[WalletModel],
@@ -23,13 +37,14 @@ def create_mock_data(
     
     users = [
         UserModel(
+            id=ObjectId(user_id),
             name=faker.name(),
             email=faker.email(),
             username=faker.user_name(),
             password=faker.password(),
             user_type=random.choice([UserType.reqular, UserType.admin]),
             created=faker.date_time_between(start_date=start_date, end_date=now, tzinfo=timezone.utc),
-        ) for _ in range(mock_users_number)
+        ) for user_id in user_ids
     ]
 
     wallets = []
@@ -54,6 +69,7 @@ def create_mock_data(
         wallets.append(wallet)
         
         payout = PayoutModel(
+            affiliate_tracking_id=ObjectId(),
             user_id=user.id,
             user_type=user.user_type,
             amount=round(random.uniform(50, wallet.available_balance), 2),
@@ -67,4 +83,4 @@ def create_mock_data(
     return users, wallets, payouts
 
 
-mock_users, mock_wallets, mock_payouts = create_mock_data(5)
+mock_users, mock_wallets, mock_payouts = create_mock_data(object_ids)

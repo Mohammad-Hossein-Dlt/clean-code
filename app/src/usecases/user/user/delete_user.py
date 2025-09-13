@@ -13,7 +13,7 @@ class DeleteUser:
     async def execute(
         self,
         user_id: str,
-    ) -> str:
+    ) -> bool:
         
         try:
             return await self.user_repo.delete_user(user_id)

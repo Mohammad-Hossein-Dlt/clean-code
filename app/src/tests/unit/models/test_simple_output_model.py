@@ -22,7 +22,6 @@ class BaseModelTest:
                                                         
         return model_dict
 
-
 class SimpleOutputTestExample(unittest.TestCase):
 
     def setUp(self):

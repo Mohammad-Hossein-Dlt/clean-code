@@ -17,6 +17,7 @@ class GetUser:
     ) -> UserModel:
         
         try:
-            return await self.user_repo.get_user_by_id(user_id)
+            user: UserModel = await self.user_repo.get_user_by_id(user_id)
+            return user.model_dump(mode="json") if user else None
         except:
             raise OperationFailureException(500, "Internal server error")  

@@ -24,7 +24,6 @@ class BaseModelTest:
                                                         
         return model_dict
 
-
 class CreateUserInputTestExample(unittest.TestCase):
 
     def setUp(self):

@@ -26,8 +26,6 @@ class BaseModelTest:
                                                 
         return model_dict
         
-
-
 class UserModelTestExample(unittest.TestCase):
     
     def setUp(self):
@@ -38,7 +36,7 @@ class UserModelTestExample(unittest.TestCase):
         now = datetime.now(timezone.utc)
                 
         self.sample = {
-            "_id":str(ObjectId()),
+            "id":str(ObjectId()),
             "name": faker.name(),
             "email": faker.email(),
             "username": faker.user_name(),

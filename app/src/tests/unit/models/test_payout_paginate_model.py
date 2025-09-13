@@ -25,7 +25,6 @@ class BaseModelTest:
                                                                 
         return model_dict
 
-
 class PayoutPaginateTestExample(unittest.TestCase):
     
     def setUp(self):
@@ -34,26 +33,40 @@ class PayoutPaginateTestExample(unittest.TestCase):
         now = datetime.now(timezone.utc)
 
         payout_samples = []
+        payout_samples_with_alias = []
         for _ in range(4):
-            payout_samples.append(
-                {
-                    "_id": str(ObjectId()),
-                    "affiliate_tracking_id": str(ObjectId()),
-                    "userId": str(ObjectId()),
-                    "userType": random.choice(
-                        [ user_type.value for user_type in UserType ],
-                    ),
-                    "amount": round(random.uniform(50, 5000), 2),
-                    "status": random.choice(
-                        [ status.value for status in PayoutStatus ],
-                    ),
-                    "paymentMethod": random.choice(
-                        [ method.value for method in PaymentMethod ],
-                    ),
-                    "paymentDate": (now + timedelta(days=random.randint(1, 30))).strftime(datetime_format),
-                    "created": (now - timedelta(days=random.randint(1, 30))).strftime(datetime_format),
-                },
-            )
+            sample = {
+                "id": str(ObjectId()),
+                "affiliate_tracking_id": str(ObjectId()),
+                "user_id": str(ObjectId()),
+                "user_type": random.choice(
+                    [ user_type.value for user_type in UserType ],
+                ),
+                "amount": round(random.uniform(50, 5000), 2),
+                "status": random.choice(
+                    [ status.value for status in PayoutStatus ],
+                ),
+                "payment_method": random.choice(
+                    [ method.value for method in PaymentMethod ],
+                ),
+                "payment_date": (now + timedelta(days=random.randint(1, 30))).strftime(datetime_format),
+                "created": (now - timedelta(days=random.randint(1, 30))).strftime(datetime_format),
+            }
+                        
+            sample_with_alias = {
+                "id": sample["id"],
+                "affiliateTrackingId": sample["affiliate_tracking_id"],
+                "userId": sample["user_id"],
+                "userType": sample["user_type"],
+                "amount": sample["amount"],
+                "status": sample["status"],
+                "paymentMethod": sample["payment_method"],
+                "paymentDate": sample["payment_date"],
+                "created": sample["created"],
+            }
+            
+            payout_samples.append(sample)
+            payout_samples_with_alias.append(sample_with_alias)
 
         self.sample = {
             "page": 1,
@@ -61,6 +74,14 @@ class PayoutPaginateTestExample(unittest.TestCase):
             "totalPages": 5,
             "totalDocs": 45,
             "results": payout_samples
+        }
+        
+        self.sample_with_alias = {
+            "page": 1,
+            "pageSize": 10,
+            "totalPages": 5,
+            "totalDocs": 45,
+            "results": payout_samples_with_alias
         }
                 
         self.test_model = BaseModelTest(PayoutPaginate)
@@ -71,5 +92,5 @@ class PayoutPaginateTestExample(unittest.TestCase):
     def test_validation(self):
         self.assertDictEqual(
             self.test_model.test_validation(self.sample),
-            self.sample
+            self.sample_with_alias
         )

@@ -24,7 +24,6 @@ class BaseModelTest:
                                                         
         return model_dict
 
-
 class UserTransactionInputTestExample(unittest.TestCase):
 
     def setUp(self):

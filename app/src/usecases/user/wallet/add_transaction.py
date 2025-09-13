@@ -19,6 +19,7 @@ class AddTransaction:
     ) -> WalletModel:
         
         try:
-            return await self.user_repo.add_transaction(user_id, wallet_id, TransactionModel.model_validate(transaction, from_attributes=True))
+            wallet: WalletModel = await self.user_repo.add_transaction(user_id, wallet_id, TransactionModel.model_validate(transaction, from_attributes=True))
+            return wallet.model_dump(mode="json")
         except:
             raise OperationFailureException(500, "Internal server error")  

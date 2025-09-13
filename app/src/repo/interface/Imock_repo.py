@@ -9,21 +9,21 @@ class IMockRepo(ABC):
     @abstractmethod
     def insert_many_users(
         users: list[UserModel],
-    ) -> bool:
+    ) -> list[str]:
     
         raise NotImplementedError
     
     @abstractmethod
     def insert_many_wallets(
         wallets: list[WalletModel],
-    ) -> bool:
+    ) -> list[str]:
     
         raise NotImplementedError    
         
     @abstractmethod
     def insert_many_payout(
         payouts: list[PayoutModel],
-    ) -> bool:
+    ) -> list[str]:
     
         raise NotImplementedError    
     

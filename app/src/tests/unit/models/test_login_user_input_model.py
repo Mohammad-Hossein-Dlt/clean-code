@@ -1,4 +1,3 @@
-import random
 import unittest
 from pydantic import BaseModel
 from app.src.models.schemas.user.login_user_input import LoginUserInput
@@ -22,7 +21,6 @@ class BaseModelTest:
         model_dict = model_instance.model_dump(by_alias=True, mode="json")
                                                         
         return model_dict
-
 
 class LoginUserInputTestExample(unittest.TestCase):
 

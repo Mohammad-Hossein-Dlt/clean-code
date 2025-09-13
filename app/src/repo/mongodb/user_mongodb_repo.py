@@ -32,15 +32,12 @@ class UserMongodbRepo(IUserRepo):
     
         user = UserCollection.find(UserCollection.id == ObjectId(user_id))                
         wallet = WalletCollection.find(WalletCollection.user_id == ObjectId(user_id))
-
-        delete_wallet = await wallet.delete()
-        if delete_wallet.deleted_count > 0:
-            delete_user = await user.delete()
-            if delete_user.deleted_count > 0:
-                return bool(delete_user.deleted_count)
         
-        return False
+        await wallet.delete()
+        delete_user = await user.delete()
         
+        return bool(delete_user.deleted_count)
+                
     async def get_user_by_id(
         self,
         user_id: str,

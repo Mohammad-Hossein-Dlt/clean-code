@@ -22,7 +22,6 @@ class BaseModelTest:
                                                         
         return model_dict
 
-
 class LoginUserOutputTestExample(unittest.TestCase):
 
     def setUp(self):

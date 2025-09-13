@@ -23,8 +23,6 @@ class BaseModelTest:
                                                 
         return model_dict
         
-
-
 class WalletModelTestExample(unittest.TestCase):
     
     def setUp(self):
@@ -33,19 +31,19 @@ class WalletModelTestExample(unittest.TestCase):
         now = datetime.now(timezone.utc)
         
         self.sample = {
-            "_id":str(ObjectId()),
+            "id":str(ObjectId()),
             "user_id":str(ObjectId()),
             "available_balance": 150.75,
             "pending_balance": 20.00,
             "transactions": [
                 {
-                    "_id":str(ObjectId()),
+                    "id":str(ObjectId()),
                     "amount": 100.50,
                     "date_available": (now + timedelta(days=10)).strftime(datetime_format),
                     "created": (now - timedelta(days=5)).strftime(datetime_format),
                 },
                 {
-                    "_id":str(ObjectId()),
+                    "id":str(ObjectId()),
                     "amount": 70.25,
                     "date_available": (now + timedelta(days=10)).strftime(datetime_format),
                     "created": (now - timedelta(days=5)).strftime(datetime_format),
@@ -60,6 +58,7 @@ class WalletModelTestExample(unittest.TestCase):
         return super().setUp()
     
     def test_validation(self):
+
         self.assertDictEqual(
             self.test_model.test_validation(self.sample),
             self.sample,

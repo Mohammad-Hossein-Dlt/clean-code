@@ -25,8 +25,6 @@ class BaseModelTest:
                                                         
         return model_dict
         
-
-
 class JWTPayloadModelTestExample(unittest.TestCase):
     
     def setUp(self):

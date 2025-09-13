@@ -40,4 +40,4 @@ class LoginUser:
         )
         token = self.jwt_handler.create_jwt_token(payload)
         
-        return LoginUserOutput(access_token=token)
+        return LoginUserOutput(access_token=token).model_dump(mode="json")

@@ -40,7 +40,7 @@ class GetAllPayouts:
                 pageSize = self.payout_repo.page_size,
                 totalPages = -(-payouts_number // self.payout_repo.page_size) if payout_filter.page else 1,
                 totalDocs = payouts_number if payout_filter.page else len(payouts_list),
-                results = [ p.model_dump(by_alias=True) for p in payouts_list],
+                results = [ p.model_dump(by_alias=True, mode="json") for p in payouts_list],
             )
         except:
             raise OperationFailureException(500, "Internal server error")  
