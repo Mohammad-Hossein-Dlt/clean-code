@@ -1,5 +1,7 @@
 [Implemations and changes](#implementations-and-changes)
 
+[Unit test](#unit-tests)
+
 ENV File Parameters
 
 Put it next to the app
@@ -25,12 +27,6 @@ To Run
 
 ```
 fastapi dev app/src/main.py
-```
-
-To run unit tests:
-
-```
-python -m app.src.tests.unit.run_tests
 ```
 
 ## App architecture description
@@ -365,3 +361,17 @@ The collections inherit from the relevant model classes in the `domain.schemas`.
   - `get_balances` defined in user repository.
 
 - Final result returned as a `PayoutPaginate` isinstance.
+  - The `snake_to_camel` function was added to `PayoutModel` as an `alias_generator` so that it can be used in the simplest way when assigning values to the `results` parameter in `PayoutPaginate`.
+
+## Unit tests
+
+The domain and model classes have been tested with unit tests.
+So far, 11 tests have been written, and by running the command, you should see all 11 tests pass.
+
+#### To run unit tests:
+
+```
+python -m app.src.tests.unit.run_tests
+```
+
+![Tests pass results](./media/tests_pass_results.png)

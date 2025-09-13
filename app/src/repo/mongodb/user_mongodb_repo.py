@@ -153,10 +153,5 @@ class UserMongodbRepo(IUserRepo):
             
             total_available_balance += wallet.available_balance
             total_pending_balance += wallet.pending_balance
-            
-            if wallet.user_id == ObjectId("68c46856aece80c81d38b439"):
-                print(total_available_balance)
-                print(total_pending_balance)
-        
         
         return total_available_balance, total_pending_balance
