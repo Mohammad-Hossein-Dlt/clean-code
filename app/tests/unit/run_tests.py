@@ -6,7 +6,7 @@ from .domain.test_wallet_model import WalletModelTestExample
 from .domain.test_payout_model import PayoutModelTestExample
 from .domain.test_jwt_payload_model import JWTPayloadModelTestExample
 
-# # Models test cases
+# Models test cases
 from .models.test_create_user_input_model import CreateUserInputTestExample
 from .models.test_login_user_input_model import LoginUserInputTestExample
 from .models.test_login_user_output_model import LoginUserOutputTestExample
