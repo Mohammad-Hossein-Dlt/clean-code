@@ -330,7 +330,7 @@ So far, 11 tests have been written, and by running the command, you should see a
 #### To run unit tests:
 
 ```
-python -m app.src.tests.unit.run_tests
+python -m app.tests.unit.run_tests
 ```
 
 ![Tests pass results](./media/tests_pass_results.png)
