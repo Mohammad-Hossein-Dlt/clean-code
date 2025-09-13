@@ -235,7 +235,7 @@ The layers are not limited to the mentioned items and can also include other rel
 
 - **PayoutPaginate** -> as class model -> `models.schemas.payout.payout_paginate.py`
 
-- **Payouts endpoint** -> as fastapi endpoint -> `routes.api_v1.payout.get_all_payouts.py`
+- **Payouts endpoint** -> as **payout/get-all** endpoint -> `routes.api_v1.payout.get_all_payouts.py`
 
 - **GetAllPayouts** -> as usecase class -> `usecases.payout.get_all_payouts.py`
 
@@ -287,13 +287,13 @@ The collections inherit from the relevant model classes in the `domain.schemas`.
 
 ### Pagination Process
 
-- **Endpoint**:
+- **Endpoint -> payout/get-all**:
 
   - Inputs come as query as parameters of type `PayoutFilter`, and response is given by executing the `GetAllPayouts` usecase .
 
-- **Usecase**:
+- **Usecase -> GetAllPayouts**:
 
-  - Payouts document and count fetched using `get_all_by_filter` and `count_by_filter`.
+  - Payouts document and count fetched using `get_all_by_filter` and `count_by_filter`, with incoming filter from endpoint.
 
     - In these two functions, filter query built with `create_query_by_filter` method in `PayoutCollection`.
 
@@ -310,7 +310,7 @@ The collections inherit from the relevant model classes in the `domain.schemas`.
 
 ## Mock data
 
-To insert test data into the database with python, related **endpoints** have been defined, which are accessible **only to the admin**. In other words, just like the `payouts` endpoint, these endpoints depend on the `check_admin_access` dependency.
+To insert test data into the database with python, related **endpoints** have been defined, which are accessible **only to the admin**. In other words, just like the `payout/get-all` endpoint, these endpoints depend on the `check_admin_access` dependency.
 
 Test data is generated for three collections: **User**, **Wallet**, and **Payout**, during the **initial system startup**.
 
