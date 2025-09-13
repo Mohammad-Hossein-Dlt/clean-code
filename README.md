@@ -1,5 +1,7 @@
 [Implemations and changes](#implementations-and-changes)
 
+[Pagination Process](#pagination-process)
+
 [Mock data (insert with python)](#mock-data)
 
 [Unit test](#unit-tests)
@@ -281,7 +283,8 @@ The collections inherit from the relevant model classes in the `domain.schemas`.
 
 ### main.py
 
-- Endpoint inputs are defined as parameters of the `PayoutFilter`.
+- **Endpoint -> payout/get-all**:
+  - inputs are defined as parameters of the `PayoutFilter`.
 
 ---
 
