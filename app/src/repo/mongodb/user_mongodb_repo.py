@@ -12,7 +12,7 @@ class UserMongodbRepo(IUserRepo):
     async def insert_user(
         self,
         user: UserModel,
-    ) -> UserModel:
+    ) -> UserModel | None:
         
         check_user_with_username = await self.get_user_by_username(user.email)
         check_user_with_email = await self.get_user_by_email(user.email)
@@ -23,6 +23,10 @@ class UserMongodbRepo(IUserRepo):
         insert_new_user = await UserCollection.insert(
             UserCollection(**user.model_dump(exclude={"id", "_id"})),
         )
+        
+        if not insert_new_user:
+            return None
+        
         return UserModel.model_validate(insert_new_user, from_attributes=True)
     
     async def delete_user(
@@ -41,7 +45,7 @@ class UserMongodbRepo(IUserRepo):
     async def get_user_by_id(
         self,
         user_id: str,
-    ) -> UserModel:
+    ) -> UserModel | None:
     
         user = await UserCollection.get(user_id)
         
@@ -79,16 +83,24 @@ class UserMongodbRepo(IUserRepo):
     ) -> list[UserModel]:
     
         users = await UserCollection.find_all().to_list()
-        return [UserModel.model_validate(user, from_attributes=True) for user in users ]
+        
+        if not users:
+            return []
+        
+        return [ UserModel.model_validate(user, from_attributes=True) for user in users ]
     
     async def insert_user_wallet(
         self,
         wallet: WalletModel,
-    ) -> WalletModel:
+    ) -> WalletModel | None:
     
         user_wallet = await WalletCollection.insert(
             WalletCollection(**wallet.model_dump())
         )
+        
+        if not user_wallet:
+            return None
+        
         return WalletModel.model_validate(user_wallet, from_attributes=True)
     
     async def get_all_user_wallets(
@@ -99,7 +111,7 @@ class UserMongodbRepo(IUserRepo):
         all_wallets = await WalletCollection.find(WalletCollection.user_id == ObjectId(user_id)).to_list()
                 
         if not all_wallets:
-            return None
+            return []
         
         return [ WalletModel.model_validate(wallet, from_attributes=True) for wallet in all_wallets]
     
@@ -108,7 +120,7 @@ class UserMongodbRepo(IUserRepo):
         user_id: str,
         wallet_id: str,
         transaction: TransactionModel,
-    ) -> WalletModel:
+    ) -> WalletModel | None:
     
         wallet = await WalletCollection.find_one(
             And(
@@ -131,6 +143,9 @@ class UserMongodbRepo(IUserRepo):
     ) -> tuple[float, float]:
         
         all_wallets = await WalletCollection.find(WalletCollection.user_id == ObjectId(user_id)).to_list()
+        
+        if not all_wallets:
+            return 0, 0
         
         total_available_balance = 0
         total_pending_balance = 0

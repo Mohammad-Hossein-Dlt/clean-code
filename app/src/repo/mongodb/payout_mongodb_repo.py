@@ -33,6 +33,9 @@ class PayoutMongodbRepo(IPayoutRepo):
         else:
             skip = (payout_filter.page - 1) * self.page_size
             payouts = await PayoutCollection.find(query).skip(skip).limit(self.page_size).to_list()
-                            
+        
+        if not payouts:
+            return []    
+        
         return [ PayoutModel.model_validate(payout, from_attributes=True) for payout in payouts ]
     

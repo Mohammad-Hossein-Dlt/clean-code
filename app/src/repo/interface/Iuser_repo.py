@@ -8,7 +8,7 @@ class IUserRepo(ABC):
     @abstractmethod
     def insert_user(
         user: UserModel,
-    ) -> UserModel:
+    ) -> UserModel | None:
     
         raise NotImplementedError
     
@@ -22,7 +22,7 @@ class IUserRepo(ABC):
     @abstractmethod
     def get_user_by_id(
         user_id: str,
-    ) -> UserModel:
+    ) ->  UserModel | None:
     
         raise NotImplementedError
     
@@ -47,7 +47,7 @@ class IUserRepo(ABC):
     @abstractmethod
     def insert_user_wallet(
         wallet: WalletModel,
-    ) -> WalletModel:
+    ) -> WalletModel | None:
     
         raise NotImplementedError
     
@@ -63,7 +63,7 @@ class IUserRepo(ABC):
         user_id: str,
         wallet_id: str,
         transaction: TransactionModel,
-    ) -> WalletModel:
+    ) -> WalletModel | None:
     
         raise NotImplementedError
     

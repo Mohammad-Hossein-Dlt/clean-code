@@ -18,6 +18,6 @@ class CreateWallet:
         
         try:
             wallet: WalletModel = await self.user_repo.insert_user_wallet(WalletModel(user_id=user_id))
-            return wallet.model_dump(mode="json")
+            return wallet.model_dump(mode="json") if wallet else None
         except:
             raise OperationFailureException(500, "Internal server error")  

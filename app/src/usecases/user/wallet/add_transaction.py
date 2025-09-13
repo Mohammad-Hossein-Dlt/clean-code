@@ -20,6 +20,6 @@ class AddTransaction:
         
         try:
             wallet: WalletModel = await self.user_repo.add_transaction(user_id, wallet_id, TransactionModel.model_validate(transaction, from_attributes=True))
-            return wallet.model_dump(mode="json")
+            return wallet.model_dump(mode="json") if wallet else None
         except:
             raise OperationFailureException(500, "Internal server error")  

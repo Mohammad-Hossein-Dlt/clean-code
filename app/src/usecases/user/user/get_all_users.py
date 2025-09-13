@@ -16,7 +16,7 @@ class GetAllUsers:
     ) -> list[UserModel]:
         
         try:
-            users:list[UserModel] = await self.user_repo.get_all_users()
+            users: list[UserModel] = await self.user_repo.get_all_users()
             return [ u.model_dump(mode="json") for u in users ]
         except:
             raise OperationFailureException(500, "Internal server error")  

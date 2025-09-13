@@ -23,6 +23,6 @@ class CreateUser:
         
         try:
             user_data: UserModel = await self.user_repo.insert_user(UserModel.model_validate(user, from_attributes=True))
-            return SimpleOutput(message="User registered successfully").model_dump(mode="json")
+            return SimpleOutput(message="User registered successfully").model_dump(mode="json") if user_data else None
         except:
             raise OperationFailureException(500, "Internal server error")  
