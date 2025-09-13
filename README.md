@@ -318,8 +318,6 @@ Since this data is recreated each time the system restarts, **new IDs** are also
 
 Because documents in the **Wallet** and **Payout** collections are linked to the **User** collection via the `user_id` field, these predefined IDs are used **only for user IDs**. For other parameters of type **ObjectId**, new IDs are generated each time.
 
----
-
 ## Unit tests
 
 The domain and model classes have been tested with unit tests.
