@@ -289,7 +289,7 @@ The collections inherit from the relevant model classes in the `domain.schemas`.
 
 - **Endpoint**:
 
-  - Inputs come as query as parameters of type `PayoutFilter`, and response is given be executing the `GetAllPayouts` usecase .
+  - Inputs come as query as parameters of type `PayoutFilter`, and response is given by executing the `GetAllPayouts` usecase .
 
 - **Usecase**:
 
