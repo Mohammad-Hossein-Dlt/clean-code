@@ -15,9 +15,9 @@ class AppStates(str, Enum):
 
 def set_app_state(app: FastAPI, key, value: Any):
     """Set a state in the FastAPI app."""
-    app.state.__setattr__(key, value)
+    setattr(app.state, key, value)
 
 
 def get_app_state(app: FastAPI, key):
     """Get a state from the FastAPI app."""
-    return app.state.__getattr__(key)
+    return getattr(app.state, key)
