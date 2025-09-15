@@ -9,7 +9,7 @@ from app.src.usecases.user.user.delete_user import DeleteUser
 from app.src.infra.exceptions.exceptions import AppBaseException
 
 @router.delete(
-    "/delete/me",
+    "/delete-me",
     status_code=200,
     responses={
         **ResponseMessage.HTTP_401_UNAUTHORIZED("Authentication failed"),

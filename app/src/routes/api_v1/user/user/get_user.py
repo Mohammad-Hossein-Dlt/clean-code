@@ -9,7 +9,7 @@ from app.src.usecases.user.user.get_user import GetUser
 from app.src.infra.exceptions.exceptions import AppBaseException
 
 @router.get(
-    "/get/me",
+    "/get-me",
     status_code=200,
     responses={
         **ResponseMessage.HTTP_401_UNAUTHORIZED("Authentication failed"),
