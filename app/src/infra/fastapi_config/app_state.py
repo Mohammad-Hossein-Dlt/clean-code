@@ -13,11 +13,18 @@ class AppStates(str, Enum):
     
     DEFAULT_PAGE_SIZE = "default_page_size"
 
-def set_app_state(app: FastAPI, key, value: Any):
+def set_app_state(
+    app: FastAPI,
+    key: str,
+    value: Any,
+):
     """Set a state in the FastAPI app."""
     setattr(app.state, key, value)
 
 
-def get_app_state(app: FastAPI, key):
+def get_app_state(
+    app: FastAPI,
+    key: str,
+):
     """Get a state from the FastAPI app."""
     return getattr(app.state, key)
