@@ -1,76 +1,67 @@
 from abc import ABC, abstractmethod
-from app.src.domain.schemas.user.user_model import UserModel
-from app.src.domain.schemas.user.wallet_model import WalletModel, TransactionModel
-
+from src.domain.schemas.user.user_model import UserModel
+from src.models.filter.base_filter_criteria import BaseFilterCriteria
 
 class IUserRepo(ABC):
     
     @abstractmethod
-    def insert_user(
+    def create_mock(
         user: UserModel,
-    ) -> UserModel | None:
+    ) -> UserModel:
     
         raise NotImplementedError
     
     @abstractmethod
-    def delete_user(
+    def create(
+        user: UserModel,
+    ) -> UserModel:
+    
+        raise NotImplementedError
+    
+    @abstractmethod
+    def get_by_id(
+        user_id: str,
+    ) -> UserModel:
+    
+        raise NotImplementedError
+    
+    @abstractmethod
+    def get_by_username(
+        username: str,
+    ) -> UserModel:
+    
+        raise NotImplementedError
+    
+    @abstractmethod
+    def get_by_email(
+        email: str,
+    ) -> UserModel:
+    
+        raise NotImplementedError
+    
+    @abstractmethod
+    def update(
+        user: UserModel,
+    ) -> UserModel:
+    
+        raise NotImplementedError
+    
+    @abstractmethod
+    def delete_by_id(
         user_id: str,
     ) -> bool:
     
         raise NotImplementedError
-    
-    @abstractmethod
-    def get_user_by_id(
-        user_id: str,
-    ) ->  UserModel | None:
-    
-        raise NotImplementedError
-    
-    @abstractmethod
-    def get_user_by_username(
-        username: str,
-    ) -> UserModel | None:
-    
-        raise NotImplementedError
-    
-    @abstractmethod
-    def get_user_by_email(
-        email: str,
-    ) -> UserModel | None:
-    
-        raise NotImplementedError
         
     @abstractmethod
-    def get_all_users() -> list[UserModel]:
+    def get_all(
+        criteria: BaseFilterCriteria | None = None, 
+    ) -> list[UserModel]:
         raise NotImplementedError
     
     @abstractmethod
-    def insert_user_wallet(
-        wallet: WalletModel,
-    ) -> WalletModel | None:
-    
-        raise NotImplementedError
-    
-    @abstractmethod
-    def get_all_user_wallets(
+    def delete_all(
         user_id: str,
-    ) -> list[WalletModel]:
+    ) -> bool:
     
         raise NotImplementedError
-    
-    @abstractmethod
-    def add_transaction(
-        user_id: str,
-        wallet_id: str,
-        transaction: TransactionModel,
-    ) -> WalletModel | None:
-    
-        raise NotImplementedError
-    
-    @abstractmethod
-    def get_balances(
-        user_id: str,
-    ) -> tuple[float, float]:
-    
-        raise NotImplementedError
-    

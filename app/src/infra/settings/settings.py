@@ -1,26 +1,24 @@
+from src.domain.enums import Environment
+from src.infra.schemas.database.mongodb import MongodbParams
+from src.infra.schemas.jwt.jwt_params import JwtParams
 from pydantic_settings import BaseSettings, SettingsConfigDict
+import os
 
-class Settings(BaseSettings):   
-    
-    EXTERNAL_FASTAPI_PORT: int
-    INTERNAL_FASTAPI_PORT: int
-    
-    MONGO_HOST: str
-    MONGO_PORT: int     
-    MONGO_INITDB_ROOT_USERNAME: str
-    MONGO_INITDB_ROOT_PASSWORD: str
-    MONGO_INITDB_DATABASE: str
-    
-    JWT_SECRET: str
-    JWT_ALGORITHM: str
-    JWT_EXPIRATION_MINUTES: int
-    
-    DEFAULT_PAGE_SIZE: int
+class Settings(BaseSettings):
+       
+    ENVIRONMENT: Environment
+    MONGODB: MongodbParams
+    JWT: JwtParams
         
     model_config = SettingsConfigDict(
         case_sensitive=False,
-        env_file=".env",
+        env_file=[
+            f".env.{os.getenv("ENVIRONMENT", "dev")}",
+            f"../.env.{os.getenv("ENVIRONMENT", "dev")}",
+        ],
         env_file_encoding="utf-8",
+        env_nested_delimiter="__",
+        extra="ignore",
     )
 
 

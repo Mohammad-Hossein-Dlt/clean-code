@@ -1,6 +1,6 @@
 from pydantic import BaseModel
+from src.domain.enums import UserType
 from datetime import datetime
-from app.src.domain.enums import UserType
 
 class JWTPayload(BaseModel):
     user_id: str

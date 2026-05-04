@@ -1,7 +1,7 @@
 import unittest
 from pydantic import BaseModel
-from app.src.domain.schemas.user.user_model import UserModel
-from app.src.domain.enums import UserType
+from src.domain.schemas.user.user_model import UserModel
+from src.domain.enums import UserType
 from datetime import datetime, timedelta, timezone
 from faker import Faker
 import random

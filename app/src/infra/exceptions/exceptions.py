@@ -1,11 +1,21 @@
+from pydantic import BaseModel
+
+class AppExceptionSchema(BaseModel):
+    status_code: int
+    message: str
+
+
 class AppBaseException(Exception):
-    """Base class for other custom exceptions."""
-    
-    def __init__(self, status_code, message):
+    """Base class for custom exceptions."""
+    def __init__(self, status_code: int, message: str):
         self.status_code = status_code
         self.message = message
-        
         super().__init__(message)
+
+    def model_dump(self) -> AppExceptionSchema:
+        schema = AppExceptionSchema(status_code=self.status_code, message=self.message)
+        return schema.model_dump(mode="json")
+
 
 class Error(AppBaseException):
     """Raised for general errors"""
@@ -57,6 +67,14 @@ class OperationFailureException(AppBaseException):
 
 class EntityNotFoundError(AppBaseException):
     """This exception is raised when an entity is not exists"""
+
+    def __init__(self, status_code, message):
+        self.status_code = status_code
+        self.message = message
+        super().__init__(status_code, message)
+
+class DuplicateEntityError(AppBaseException):
+    """This exception is raised when an entity is duplicate"""
 
     def __init__(self, status_code, message):
         self.status_code = status_code

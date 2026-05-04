@@ -1,5 +1,10 @@
 from enum import Enum
 
+class Environment(str, Enum):
+    dev = "dev"
+    test = "test"
+    prod = "prod"
+
 class UserType(str, Enum):
     admin = "admin"
     reqular = "reqular"

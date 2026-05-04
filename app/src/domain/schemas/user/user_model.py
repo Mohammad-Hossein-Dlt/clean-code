@@ -1,23 +1,33 @@
-from pydantic import BaseModel, Field, model_validator
+from src.infra.utils.custom_base_model import CustomBaseModel
+from src.domain.enums import UserType
+from pydantic import Field, ConfigDict, model_validator
 from beanie import PydanticObjectId
 from bson.objectid import ObjectId
-from app.src.domain.enums import UserType
 from datetime import datetime, timezone
+from typing import Self
 
-
-class UserModel(BaseModel):
-    id: PydanticObjectId = Field(default_factory=ObjectId)
-    name: str
-    email: str
-    username: str
-    password: str
-    user_type: UserType
-    created: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    updated: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+class UserModel(CustomBaseModel):
     
-    @model_validator(mode="before")
-    def map_id(cls, values: dict) -> dict:
+    id: PydanticObjectId = Field(default_factory=ObjectId)
+    name: str | None = None
+    email: str | None = None
+    username: str | None = None
+    password: str | None = None
+    user_type: UserType | None = None
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-        if "_id" in values:
-            values["id"] = values.pop("_id")
-        return values
+    model_config = ConfigDict(
+        extra='allow',
+        populate_by_name=True,
+    )
+
+    @model_validator(mode='after')
+    def validate_values(
+        self
+    ) -> Self:
+        
+        if "updated_at" not in self.model_fields_set:
+            self.updated_at = self.created_at
+        
+        return self

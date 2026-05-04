@@ -1,11 +1,10 @@
-from app.src.domain.schemas.user.user_model import UserModel
-from app.src.repo.interface.Iuser_repo import IUserRepo
-from app.src.models.schemas.user.login_user_input import LoginUserInput
-from app.src.models.schemas.user.login_user_output import LoginUserOutput
-from app.src.infra.auth.jwt_handler import JWTHandler
-from app.src.domain.schemas.auth.jwt_payload import JWTPayload
-from app.src.infra.exceptions.exceptions import AuthenticationException, EntityNotFoundError
-from app.src.infra.exceptions.exceptions import OperationFailureException
+from src.repo.interface.Iuser_repo import IUserRepo
+from src.infra.bootstrap.jwt_handler import JWTHandler
+from src.models.schemas.user.login_user_input import LoginUserInput
+from src.models.schemas.user.login_user_output import LoginUserOutput
+from src.domain.schemas.user.user_model import UserModel
+from src.domain.schemas.auth.jwt_payload import JWTPayload
+from src.infra.exceptions.exceptions import AppBaseException, AuthenticationException, OperationFailureException
 
 class LoginUser:
     
@@ -20,24 +19,24 @@ class LoginUser:
     
     async def execute(
         self,
-        user: LoginUserInput,
+        entity: LoginUserInput,
     ) -> LoginUserOutput:
         
-        try:
-            get_user: UserModel = await self.user_repo.get_user_by_username(user.username)
+        try:        
+            user: UserModel = await self.user_repo.get_by_username(entity.username)
+
+            if not entity.password == user.password:
+                raise AuthenticationException(status_code=400, message="Invalid credentials")
+            
+            payload = JWTPayload(
+                user_id=str(user.id),
+                user_type=user.user_type,
+            )
+            
+            token = self.jwt_handler.create_jwt_token(payload)
+            
+            return LoginUserOutput(access_token=token)
+        except AppBaseException:
+            raise
         except:
             raise OperationFailureException(500, "Internal server error")  
-        
-        if not get_user:
-            raise EntityNotFoundError(status_code=404, message="User not found")
-        
-        if not user.password == get_user.password:
-            raise AuthenticationException(status_code=400, message="Invalid credentials")
-        
-        payload = JWTPayload(
-            user_id = str(get_user.id),
-            user_type= get_user.user_type,
-        )
-        token = self.jwt_handler.create_jwt_token(payload)
-        
-        return LoginUserOutput(access_token=token).model_dump(mode="json")

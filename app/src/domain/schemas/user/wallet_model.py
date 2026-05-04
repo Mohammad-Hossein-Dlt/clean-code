@@ -1,34 +1,53 @@
+from src.infra.utils.custom_base_model import CustomBaseModel
+from pydantic import Field, ConfigDict, model_validator
 from beanie import PydanticObjectId
-from datetime import datetime, timezone
-from pydantic import BaseModel, Field, model_validator
 from bson.objectid import ObjectId
+from datetime import datetime, timezone
+from typing import Self
 
-class TransactionModel(BaseModel):
+class TransactionModel(CustomBaseModel):
     id: PydanticObjectId = Field(default_factory=ObjectId)
     amount: float
     date_available: datetime
-    created: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     
-    @model_validator(mode="before")
-    def map_id(cls, values: dict) -> dict:
+    model_config = ConfigDict(
+        extra='allow',
+        populate_by_name=True,
+    )
 
-        if "_id" in values:
-            values["id"] = values.pop("_id")
-        return values
+    @model_validator(mode='after')
+    def validate_values(
+        self
+    ) -> Self:
+        
+        if "updated_at" not in self.model_fields_set:
+            self.updated_at = self.created_at
+        
+        return self
 
-
-class WalletModel(BaseModel):
+class WalletModel(CustomBaseModel):
     id: PydanticObjectId = Field(default_factory=ObjectId)
-    user_id: PydanticObjectId
-    available_balance: float = 0
-    pending_balance: float = 0
-    transactions: list[TransactionModel] = []
-    created: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    updated: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))   
+    user_id: PydanticObjectId | None = None
+    available_balance: float | None = None
+    pending_balance: float | None = None
+    transactions: list[TransactionModel] | None = None
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     
-    @model_validator(mode="before")
-    def map_id(cls, values: dict) -> dict:
 
-        if "_id" in values:
-            values["id"] = values.pop("_id")
-        return values
+    model_config = ConfigDict(
+        extra='allow',
+        populate_by_name=True,
+    )
+
+    @model_validator(mode='after')
+    def validate_values(
+        self
+    ) -> Self:
+        
+        if "updated_at" not in self.model_fields_set:
+            self.updated_at = self.created_at
+        
+        return self

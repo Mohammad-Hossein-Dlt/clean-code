@@ -1,8 +1,8 @@
 import unittest
 from pydantic import BaseModel
 from datetime import datetime, timedelta, timezone
-from app.src.domain.enums import UserType, PayoutStatus, PaymentMethod
-from app.src.domain.schemas.payout.payout_model import PayoutModel
+from src.domain.enums import UserType, PayoutStatus, PaymentMethod
+from src.domain.schemas.payout.payout_model import PayoutModel
 import random
 from bson.objectid import ObjectId
 

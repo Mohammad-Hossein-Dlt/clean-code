@@ -1,6 +1,6 @@
 import unittest
 from pydantic import BaseModel
-from app.src.models.schemas.user.user_transaction_input import UserTransactionInput
+from src.models.schemas.user.user_transaction_input import UserTransactionInput
 from faker import Faker
 from datetime import datetime, timedelta, timezone
 import random

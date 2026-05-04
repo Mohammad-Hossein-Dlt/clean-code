@@ -1,8 +1,8 @@
 import random
 import unittest
 from pydantic import BaseModel
-from app.src.domain.enums import UserType
-from app.src.models.schemas.user.create_user_input import CreateUserInput
+from src.domain.enums import UserType
+from src.models.schemas.user.create_user_input import CreateUserInput
 from faker import Faker
 
 class BaseModelTest:

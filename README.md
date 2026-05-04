@@ -44,15 +44,12 @@ In this layer, the application infrastructure is defined, such as:
 - Database client and its models (tables)
 
 - Errors related to this layer and other layers
-
   - include status code and message
 
 - Services for interacting with external APIs
-
   - include interfaces and their implementation
 
 - Fastapi config such as
-
   - middleware
   - tasks that should be run on startup or shutdown, such as create and close database client
   - implement some states based on settings loaded from .env in main app, to have access them throughout the entire project
@@ -233,7 +230,7 @@ The layers are not limited to the mentioned items and can also include other rel
 
 - **Repositories** -> as class model -> `repo.mongodb/`
 
-- **PayoutFilter** -> as class model -> `models.filter.payout_filter.py`
+- **PayoutFilter** -> as class model -> `models.filter.criteria.py`
 
 - **PayoutPaginate** -> as class model -> `models.schemas.payout.payout_paginate.py`
 
@@ -252,18 +249,15 @@ The collections inherit from the relevant model classes in the `domain.schemas`.
 - User authentication and validation are all handled through auth dependencies.
 
 - Token handling is managed by `JWTHandler`.
-
   - Added `create_jwt_token` and `verify_token`.
   - Rewritten `decode_token`.
 
 - Token payload defined in `JWTPayload`.
-
   - `user_id`: **str**
   - `user_type`: **UserType**
   - `exp`: **datetime**
 
 - Since `user_type` is now in the payload:
-
   - `check_user_is_admin` and `get_email_from_token` were removed.
   - `user_type` validation is now a auth dependency.
 
@@ -274,7 +268,6 @@ The collections inherit from the relevant model classes in the `domain.schemas`.
 ### d_2.py
 
 - Database environment variables moved to `.env`.
-
   - The database client and its collections are defined in redefined paths.
 
 - Collections are based on Pydantic models in domain schemas.
@@ -291,19 +284,15 @@ The collections inherit from the relevant model classes in the `domain.schemas`.
 ### Pagination Process
 
 - **Endpoint -> payout/get-all**:
-
   - Inputs come as query as parameters of type `PayoutFilter`, and response is given by executing the `GetAllPayouts` usecase .
 
 - **Usecase -> GetAllPayouts**:
-
   - Payouts document and count fetched using `get_all_by_filter` and `count_by_filter`, with incoming filter from endpoint.
-
     - In these two functions, filter query built with `create_query_by_filter` method in `PayoutCollection`.
 
   - If the incoming request expects payouts along with wallet → handled by `get_balances`.
 
   **Repositories used in this usescase**
-
   - `get_all_by_filter` & `count_by_filter` defined in payout repository.
 
   - `get_balances` defined in user repository.

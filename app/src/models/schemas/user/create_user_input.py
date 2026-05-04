@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from app.src.domain.enums import UserType
+from src.domain.enums import UserType
 
 class CreateUserInput(BaseModel):
     name: str

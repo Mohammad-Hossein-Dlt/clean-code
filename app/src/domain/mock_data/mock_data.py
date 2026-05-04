@@ -1,8 +1,8 @@
 import random
-from app.src.domain.schemas.user.user_model import UserModel
-from app.src.domain.schemas.user.wallet_model import TransactionModel, WalletModel
-from app.src.domain.schemas.payout.payout_model import PayoutModel
-from app.src.domain.enums import PaymentMethod, PayoutStatus, UserType
+from src.domain.schemas.user.user_model import UserModel
+from src.domain.schemas.user.wallet_model import TransactionModel, WalletModel
+from src.domain.schemas.payout.payout_model import PayoutModel
+from src.domain.enums import PaymentMethod, PayoutStatus, UserType
 from bson.objectid import ObjectId
 from datetime import datetime, timezone, timedelta
 from faker import Faker
@@ -43,7 +43,7 @@ def create_mock_data(
             username=faker.user_name(),
             password=faker.password(),
             user_type=random.choice([UserType.reqular, UserType.admin]),
-            created=faker.date_time_between(start_date=start_date, end_date=now, tzinfo=timezone.utc),
+            created_at=faker.date_time_between(start_date=start_date, end_date=now, tzinfo=timezone.utc),
         ) for user_id in user_ids
     ]
 
@@ -54,13 +54,15 @@ def create_mock_data(
         
         wallet = WalletModel(
             user_id=user.id,
-            created=user.created,
+            created_at=user.created_at,
+            available_balance=random.randint(5, 50),
+            pending_balance=random.randint(5, 50),
         )
         
         transactions = [
             TransactionModel(
             amount=round(random.uniform(50, 500), 2),
-            date_available=faker.date_time_between(start_date=wallet.created, end_date=end_date, tzinfo=timezone.utc)
+            date_available=faker.date_time_between(start_date=wallet.created_at, end_date=end_date, tzinfo=timezone.utc)
             ) for _ in range(random.randint(1, 5))
         ]
                 
@@ -75,8 +77,8 @@ def create_mock_data(
             amount=round(random.uniform(50, wallet.available_balance), 2),
             status=random.choice([PayoutStatus.pending, PayoutStatus.approved, PayoutStatus.paid, PayoutStatus.rejected]),
             payment_method=random.choice([PaymentMethod.bank, PaymentMethod.paypal, PaymentMethod.crypto]),
-            payment_date=faker.date_time_between(start_date=wallet.created, end_date=end_date, tzinfo=timezone.utc),
-            created=faker.date_time_between(start_date=wallet.created, end_date=end_date, tzinfo=timezone.utc)
+            payment_date=faker.date_time_between(start_date=wallet.created_at, end_date=end_date, tzinfo=timezone.utc),
+            created_at=faker.date_time_between(start_date=wallet.created_at, end_date=end_date, tzinfo=timezone.utc)
         )
         payouts.append(payout)
     

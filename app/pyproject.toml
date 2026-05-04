@@ -1,0 +1,29 @@
+[project]
+name = "app"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "beanie>=2.1.0",
+    "email-validator>=2.3.0",
+    "faker>=40.15.0",
+    "fastapi>=0.136.1",
+    "fastapi-cli>=0.0.24",
+    "fastapi-cloud-cli>=0.17.1",
+    "fastapi-swagger>=0.4.49",
+    "httptools>=0.7.1",
+    "jinja2>=3.1.6",
+    "pipdeptree>=2.35.2",
+    "pydantic>=2.13.3",
+    "pydantic-settings>=2.14.0",
+    "pyjwt>=2.12.1",
+    "pymongo>=4.17.0",
+    "python-multipart>=0.0.27",
+    "pyyaml>=6.0.3",
+    "requests>=2.33.1",
+    "sqlalchemy>=2.0.49",
+    "watchfiles>=1.1.1",
+    "websockets>=16.0",
+]
+
+[[tool.uv.index]]
+url = "https://repo.hmirror.ir/python/simple"

@@ -1,6 +1,6 @@
 import unittest
 from pydantic import BaseModel
-from app.src.models.schemas.user.login_user_input import LoginUserInput
+from src.models.schemas.user.login_user_input import LoginUserInput
 from faker import Faker
 
 class BaseModelTest:

@@ -1,6 +1,6 @@
 import unittest
 from pydantic import BaseModel
-from app.src.models.schemas.simple.simple_output import SimpleOutput
+from src.models.schemas.simple.simple_output import SimpleOutput
 from faker import Faker
 
 class BaseModelTest:

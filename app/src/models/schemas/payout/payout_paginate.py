@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from app.src.domain.schemas.payout.payout_model import PayoutModel
+from src.domain.schemas.payout.payout_model import PayoutModel
 
 class PayoutPaginate(BaseModel):
     page: int | None = None

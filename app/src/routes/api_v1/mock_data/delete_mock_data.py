@@ -1,17 +1,17 @@
 from ._router import router
 from fastapi import HTTPException, Depends
-from app.src.routes.http_response.responses import ResponseMessage
-from app.src.routes.depends.mock_repo_depend import get_mock_repo
-from app.src.routes.depends.auth_depend import check_admin_access
-from app.src.domain.schemas.auth.jwt_payload import JWTPayload
-from app.src.repo.interface.Ipayout_repo import IPayoutRepo
-from app.src.domain.mock_data.mock_data import mock_users
-from app.src.usecases.mock_data.delete_mock_data import DeleteMockData
-from app.src.infra.exceptions.exceptions import AppBaseException
+from src.routes.http_response.responses import ResponseMessage
+from src.repo.interface.Ipayout_repo import IPayoutRepo
+from src.routes.depends.repo_depend import get_mock_repo
+from src.domain.schemas.user.user_model import UserModel
+from src.routes.depends.auth_depend import check_admin_access
+from src.usecases.mock_data.delete_mock_data import DeleteMockData
+from src.domain.mock_data.mock_data import mock_users
+from src.infra.exceptions.exceptions import AppBaseException
 
 
 @router.delete(
-    "/delete",
+    "/",
     status_code=200,
     responses={
         **ResponseMessage.HTTP_401_UNAUTHORIZED("Authentication failed"),
@@ -21,10 +21,11 @@ from app.src.infra.exceptions.exceptions import AppBaseException
 )
 async def delete_mock_payouts(
     mock_repo: IPayoutRepo = Depends(get_mock_repo),
-    admin: JWTPayload = Depends(check_admin_access),
+    admin: UserModel = Depends(check_admin_access),
 ):
     try:
         delete_mock_data_usecase = DeleteMockData(mock_repo)
-        return await delete_mock_data_usecase.execute(mock_users)
+        output = await delete_mock_data_usecase.execute(mock_users)
+        return output.model_dump(mode="json")
     except AppBaseException as ex:
         raise HTTPException(status_code=ex.status_code, detail=str(ex))

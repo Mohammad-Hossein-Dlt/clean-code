@@ -10,8 +10,8 @@ from .domain.test_jwt_payload_model import JWTPayloadModelTestExample
 from .models.test_create_user_input_model import CreateUserInputTestExample
 from .models.test_login_user_input_model import LoginUserInputTestExample
 from .models.test_login_user_output_model import LoginUserOutputTestExample
-from .models.test_payout_filter_model import PayoutFilterTestExample
-from .models.test_payout_paginate_model import PayoutPaginateTestExample
+from .models.test_criteria_model import PayoutPaginateTestExample
+from .models.test_criteria_model import PayoutPaginateTestExample
 from .models.test_simple_output_model import SimpleOutputTestExample
 from .models.test_user_transaction_input_model import UserTransactionInputTestExample
 

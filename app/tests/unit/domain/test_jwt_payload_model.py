@@ -2,8 +2,8 @@ import random
 import unittest
 from pydantic import BaseModel
 from datetime import datetime, timedelta, timezone
-from app.src.domain.enums import UserType
-from app.src.domain.schemas.auth.jwt_payload import JWTPayload
+from src.domain.enums import UserType
+from src.domain.schemas.auth.jwt_payload import JWTPayload
 from bson.objectid import ObjectId
 
 class BaseModelTest:

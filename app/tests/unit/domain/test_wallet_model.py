@@ -1,6 +1,6 @@
 import unittest
 from pydantic import BaseModel
-from app.src.domain.schemas.user.wallet_model import WalletModel
+from src.domain.schemas.user.wallet_model import WalletModel
 from datetime import datetime, timedelta, timezone
 from bson.objectid import ObjectId
 

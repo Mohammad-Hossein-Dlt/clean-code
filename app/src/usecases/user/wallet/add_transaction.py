@@ -1,25 +1,29 @@
-from app.src.repo.interface.Iuser_repo import IUserRepo
-from app.src.domain.schemas.user.wallet_model import WalletModel, TransactionModel
-from app.src.infra.exceptions.exceptions import OperationFailureException
+from src.repo.interface.Iwallet_repo import IWalletRepo
+from src.domain.schemas.user.wallet_model import WalletModel, TransactionModel
+from src.infra.exceptions.exceptions import AppBaseException, OperationFailureException
 
 class AddTransaction:
     
     def __init__(
         self,
-        user_repo: IUserRepo,
+        wallet_repo: IWalletRepo,
     ):
         
-        self.user_repo = user_repo    
+        self.wallet_repo = wallet_repo    
     
     async def execute(
         self,
-        user_id: str,
         wallet_id: str,
         transaction: TransactionModel,
     ) -> WalletModel:
         
         try:
-            wallet: WalletModel = await self.user_repo.add_transaction(user_id, wallet_id, TransactionModel.model_validate(transaction, from_attributes=True))
-            return wallet.model_dump(mode="json") if wallet else None
+            transaction_model: TransactionModel = TransactionModel.model_validate(transaction, from_attributes=True)
+            wallet: WalletModel = await self.wallet_repo.get_by_id(wallet_id)
+            wallet.transactions.append(transaction_model)
+            wallet.updated_at = transaction_model.created_at
+            return await self.wallet_repo.update(wallet)
+        except AppBaseException:
+            raise
         except:
             raise OperationFailureException(500, "Internal server error")  

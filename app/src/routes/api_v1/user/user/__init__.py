@@ -1,17 +1,21 @@
 from . import (
     _router,
-    create_user,
+    create,
     login_user,
-    get_user,
-    get_all_users,
-    delete_user,
+    get_by_id,
+    update,
+    delete_by_id,
+    get_all,
+    delete_all,
 )
 
 __all__ = [
     "_router",
-    "create_user",
+    "create",
     "login_user",
-    "get_user",
-    "get_all_users",
-    "delete_user",
+    "get_by_id",
+    "update",
+    "delete_by_id",
+    "get_all",
+    "delete_all",
 ]
