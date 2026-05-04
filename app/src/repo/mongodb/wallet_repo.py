@@ -3,7 +3,7 @@ from src.domain.schemas.user.wallet_model import WalletModel
 from src.infra.database.mongodb.collections.wallet_collection import WalletCollection
 from src.models.filter.base_filter_criteria import BaseFilterCriteria
 from src.infra.exceptions.exceptions import EntityNotFoundError
-from src.infra.utils.convert_id import convert_object_id
+from src.infra.utils.convert_id import convert_database_id
 
 class WalletMongodbRepo(IWalletRepo):
         
@@ -39,7 +39,7 @@ class WalletMongodbRepo(IWalletRepo):
     ) -> WalletModel:
     
         try:
-            wallet_id = convert_object_id(wallet_id)
+            wallet_id = convert_database_id(wallet_id)
             wallet = await WalletCollection.find_one(
                 WalletCollection.id == wallet_id,
             )
@@ -77,7 +77,7 @@ class WalletMongodbRepo(IWalletRepo):
     ) -> bool:
     
         try:
-            wallet_id = convert_object_id(wallet_id)
+            wallet_id = convert_database_id(wallet_id)
             delete_wallet = await WalletCollection.find_one(
                 WalletCollection.id == wallet_id,
             ).delete()
@@ -92,7 +92,7 @@ class WalletMongodbRepo(IWalletRepo):
     ) -> list[WalletModel]:
     
         try:
-            user_id = convert_object_id(user_id)
+            user_id = convert_database_id(user_id)
             query = WalletCollection.find(
                 WalletCollection.user_id == user_id,
             )
@@ -117,7 +117,7 @@ class WalletMongodbRepo(IWalletRepo):
     ) -> bool:
     
         try:
-            user_id = convert_object_id(user_id)
+            user_id = convert_database_id(user_id)
             delete_wallets = await WalletCollection.find(
                 WalletCollection.user_id == user_id,
             ).delete()

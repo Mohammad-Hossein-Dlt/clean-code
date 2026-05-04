@@ -3,7 +3,7 @@ from src.domain.schemas.user.user_model import UserModel
 from src.infra.database.mongodb.collections.user_collection import UserCollection
 from src.models.filter.base_filter_criteria import BaseFilterCriteria
 from src.infra.exceptions.exceptions import EntityNotFoundError, DuplicateEntityError
-from src.infra.utils.convert_id import convert_object_id
+from src.infra.utils.convert_id import convert_database_id
 
 class UserMongodbRepo(IUserRepo):
             
@@ -43,7 +43,7 @@ class UserMongodbRepo(IUserRepo):
     ) -> UserModel:
 
         try:
-            user_id = convert_object_id(user_id)       
+            user_id = convert_database_id(user_id)       
             user = await UserCollection.find_one(
                 UserCollection.id == user_id,
             )
@@ -107,7 +107,7 @@ class UserMongodbRepo(IUserRepo):
     ) -> bool:
     
         try:
-            user_id = convert_object_id(user_id)       
+            user_id = convert_database_id(user_id)       
             delete_user = await UserCollection.find_one(
                 UserCollection.id == user_id,
             ).delete()                

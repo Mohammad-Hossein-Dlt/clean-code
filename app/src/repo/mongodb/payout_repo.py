@@ -4,7 +4,7 @@ from src.infra.database.mongodb.collections.payout_collection import PayoutColle
 from src.models.filter.base_filter_criteria import BaseFilterCriteria
 from src.models.filter.payout_sriteria import PayoutCriteria
 from src.infra.exceptions.exceptions import EntityNotFoundError
-from src.infra.utils.convert_id import convert_object_id
+from src.infra.utils.convert_id import convert_database_id
 
 class PayoutMongodbRepo(IPayoutRepo):
 
@@ -40,7 +40,7 @@ class PayoutMongodbRepo(IPayoutRepo):
     ) -> PayoutModel:
     
         try:
-            payout_id = convert_object_id(payout_id)
+            payout_id = convert_database_id(payout_id)
             payout = await PayoutCollection.find(
                 PayoutCollection.id == payout_id,
             ).to_list()
@@ -78,7 +78,7 @@ class PayoutMongodbRepo(IPayoutRepo):
     ) -> bool:
     
         try:
-            payout_id = convert_object_id(payout_id)
+            payout_id = convert_database_id(payout_id)
             delete_payout = await PayoutCollection.find_one(
                 PayoutCollection.id == payout_id,
             ).delete()
@@ -93,7 +93,7 @@ class PayoutMongodbRepo(IPayoutRepo):
     ) -> list[PayoutModel]:
     
         try:
-            user_id = convert_object_id(user_id)
+            user_id = convert_database_id(user_id)
             query = PayoutCollection.find(
                 PayoutCollection.user_id == user_id,
             )            
@@ -118,7 +118,7 @@ class PayoutMongodbRepo(IPayoutRepo):
     ) -> bool:
     
         try:
-            user_id = convert_object_id(user_id)
+            user_id = convert_database_id(user_id)
             delete_payouts = await PayoutCollection.find(
                 PayoutCollection.user_id == user_id,
             ).delete()
