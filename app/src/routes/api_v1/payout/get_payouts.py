@@ -1,7 +1,7 @@
 from ._router import router
 from fastapi import Depends, HTTPException, Query
 from src.routes.http_response.responses import ResponseMessage
-from src.models.filter.payout_sriteria import PayoutCriteria
+from app.src.models.filter.payout_filter_input import PayoutFilterInput
 from src.repo.interface.Iuser_repo import IUserRepo
 from src.routes.depends.repo_depend import get_user_repo
 from src.repo.interface.Ipayout_repo import IPayoutRepo
@@ -23,7 +23,7 @@ from src.infra.exceptions.exceptions import AppBaseException
     }
 )
 async def all_payout(
-    criteria: PayoutCriteria = Query(None),
+    criteria: PayoutFilterInput = Query(None),
     user_repo: IUserRepo = Depends(get_user_repo),
     payout_repo: IPayoutRepo = Depends(get_payout_repo),
     wallet_repo: IWalletRepo = Depends(get_wallet_repo),

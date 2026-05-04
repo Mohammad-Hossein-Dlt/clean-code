@@ -1,6 +1,6 @@
 import unittest
 from pydantic import BaseModel
-from src.models.filter.payout_sriteria import PayoutCriteria
+from app.src.models.filter.payout_filter_input import PayoutFilterInput
 from src.domain.enums import UserType, PayoutStatus
 from datetime import datetime, timedelta, timezone
 import random
@@ -51,7 +51,7 @@ class PayoutCriteriaTestExample(unittest.TestCase):
             "add_wallet": faker.boolean(),
         }
 
-        self.test_model = BaseModelTest(PayoutCriteria)
+        self.test_model = BaseModelTest(PayoutFilterInput)
 
         return super().setUp()
 

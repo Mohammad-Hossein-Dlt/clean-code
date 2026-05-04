@@ -2,7 +2,7 @@ from src.repo.interface.Ipayout_repo import IPayoutRepo
 from src.domain.schemas.payout.payout_model import PayoutModel
 from src.infra.database.mongodb.collections.payout_collection import PayoutCollection
 from src.models.filter.base_filter_criteria import BaseFilterCriteria
-from src.models.filter.payout_sriteria import PayoutCriteria
+from app.src.models.filter.payout_filter_input import PayoutFilterInput
 from src.infra.exceptions.exceptions import EntityNotFoundError
 from src.infra.utils.convert_id import convert_database_id
 
@@ -128,7 +128,7 @@ class PayoutMongodbRepo(IPayoutRepo):
 
     async def count_by_criteria(
         self,
-        criteria: PayoutCriteria,
+        criteria: PayoutFilterInput,
     ) -> int:
         
         try:
@@ -140,7 +140,7 @@ class PayoutMongodbRepo(IPayoutRepo):
         
     async def get_by_criteria(
         self,
-        criteria: PayoutCriteria,
+        criteria: PayoutFilterInput,
     ) -> list[PayoutModel]:
         
         try:

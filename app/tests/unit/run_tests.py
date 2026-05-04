@@ -12,7 +12,6 @@ from .models.test_login_user_input_model import LoginUserInputTestExample
 from .models.test_login_user_output_model import LoginUserOutputTestExample
 from .models.test_criteria_model import PayoutPaginateTestExample
 from .models.test_criteria_model import PayoutPaginateTestExample
-from .models.test_simple_output_model import SimpleOutputTestExample
 from .models.test_user_transaction_input_model import UserTransactionInputTestExample
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from src.domain.schemas.payout.payout_model import PayoutModel
-from src.models.filter.payout_sriteria import PayoutCriteria
+from app.src.models.filter.payout_filter_input import PayoutFilterInput
 
 class IPayoutRepo(ABC):
     
@@ -42,7 +42,7 @@ class IPayoutRepo(ABC):
     @abstractmethod
     def get_by_user_id(
         user_id: str,
-        criteria: PayoutCriteria | None = None, 
+        criteria: PayoutFilterInput | None = None, 
     ) -> list[PayoutModel]:
     
         raise NotImplementedError
@@ -57,14 +57,14 @@ class IPayoutRepo(ABC):
     
     @abstractmethod
     def count_by_criteria(
-        criteria: PayoutCriteria,
+        criteria: PayoutFilterInput,
     ) -> int:
     
         raise NotImplementedError
     
     @abstractmethod
     def get_by_criteria(
-        criteria: PayoutCriteria,
+        criteria: PayoutFilterInput,
     ) -> list[PayoutModel]:
     
         raise NotImplementedError

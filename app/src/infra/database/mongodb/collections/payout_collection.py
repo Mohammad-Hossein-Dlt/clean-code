@@ -1,5 +1,5 @@
 from src.domain.schemas.payout.payout_model import PayoutModel
-from src.models.filter.payout_sriteria import PayoutCriteria
+from app.src.models.filter.payout_filter_input import PayoutFilterInput
 from src.domain.enums import UserType, PayoutStatus, PaymentMethod
 from pydantic import Field, model_validator
 from beanie import Document, before_event, Update
@@ -36,7 +36,7 @@ class PayoutCollection(PayoutModel, Document):
     @classmethod
     def create_query_by_criteria(
         cls,
-        criteria: PayoutCriteria,
+        criteria: PayoutFilterInput,
     ):
         
         query = {}

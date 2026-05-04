@@ -2,7 +2,7 @@ from src.repo.interface.Iuser_repo import IUserRepo
 from src.repo.interface.Iwallet_repo import IWalletRepo
 from src.repo.interface.Ipayout_repo import IPayoutRepo
 from src.usecases.payout.get_balances import GetBalances
-from src.models.filter.payout_sriteria import PayoutCriteria
+from app.src.models.filter.payout_filter_input import PayoutFilterInput
 from src.models.schemas.payout.payout_paginate import PayoutPaginate
 from src.domain.schemas.payout.payout_model import PayoutModel
 from src.infra.exceptions.exceptions import AppBaseException, OperationFailureException
@@ -23,7 +23,7 @@ class GetPayouts:
     
     async def execute(
         self,
-        criteria: PayoutCriteria,
+        criteria: PayoutFilterInput,
     ) -> PayoutPaginate:
         
         try:
