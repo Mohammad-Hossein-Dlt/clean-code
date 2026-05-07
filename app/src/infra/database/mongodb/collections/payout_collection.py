@@ -1,5 +1,5 @@
 from src.domain.schemas.payout.payout_model import PayoutModel
-from app.src.models.filter.payout_filter_input import PayoutFilterInput
+from src.models.filter.payout_filter_input import PayoutFilterInput
 from src.domain.enums import UserType, PayoutStatus, PaymentMethod
 from pydantic import Field, model_validator
 from beanie import Document, before_event, Update

@@ -2,7 +2,7 @@ from src.repo.interface.Ipayout_repo import IPayoutRepo
 from src.domain.schemas.payout.payout_model import PayoutModel
 from src.infra.database.mongodb.collections.payout_collection import PayoutCollection
 from src.models.filter.base_filter_criteria import BaseFilterCriteria
-from app.src.models.filter.payout_filter_input import PayoutFilterInput
+from src.models.filter.payout_filter_input import PayoutFilterInput
 from src.infra.exceptions.exceptions import EntityNotFoundError
 from src.infra.utils.convert_id import convert_database_id
 
@@ -15,7 +15,7 @@ class PayoutMongodbRepo(IPayoutRepo):
                 
         try:
             new_payout = await PayoutCollection.insert(
-                PayoutCollection(**payout.model_dump_for_mock()),
+                PayoutCollection(**payout.model_dump()),
             )
             return PayoutModel.model_validate(new_payout, from_attributes=True) 
         except:
@@ -28,7 +28,7 @@ class PayoutMongodbRepo(IPayoutRepo):
                 
         try:
             new_payout = await PayoutCollection.insert(
-                PayoutCollection(**payout.model_dump_for_create()),
+                PayoutCollection(**payout.model_dump_for_db()),
             )
             return PayoutModel.model_validate(new_payout, from_attributes=True) 
         except:
@@ -55,9 +55,8 @@ class PayoutMongodbRepo(IPayoutRepo):
     
         try:               
             
-            to_update: dict = PayoutModel.model_dump_for_update(
+            to_update: dict = PayoutModel.model_dump_for_db(
                 exclude_none=True,
-                db_stack="no-sql",
             )
             
             await PayoutCollection.find(
@@ -103,7 +102,7 @@ class PayoutMongodbRepo(IPayoutRepo):
                 ).limit(
                     criteria.limit
                 ).sort(
-                    PayoutCollection.created_at if criteria.order == "asc" else -PayoutCollection.created_at
+                    PayoutCollection.id if criteria.order == "asc" else -PayoutCollection.id
                 )
             
             payouts_list = await query.to_list()
@@ -152,7 +151,7 @@ class PayoutMongodbRepo(IPayoutRepo):
                 ).limit(
                     criteria.limit
                 ).sort(
-                    PayoutCollection.created_at if criteria.order == "asc" else -PayoutCollection.created_at
+                    PayoutCollection.id if criteria.order == "asc" else -PayoutCollection.id
                 )
             
             payouts_list = await query.to_list()

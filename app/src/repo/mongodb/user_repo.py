@@ -18,7 +18,7 @@ class UserMongodbRepo(IUserRepo):
             raise DuplicateEntityError(409, "User already exist")
         except EntityNotFoundError:
             new_user = await UserCollection.insert(
-                UserCollection(**user.model_dump_for_mock()),
+                UserCollection(**user.model_dump()),
             )
             return UserModel.model_validate(new_user, from_attributes=True)
         
@@ -33,7 +33,7 @@ class UserMongodbRepo(IUserRepo):
             raise DuplicateEntityError(409, "User already exist")
         except EntityNotFoundError:
             new_user = await UserCollection.insert(
-                UserCollection(**user.model_dump_for_create()),
+                UserCollection(**user.model_dump_for_db()),
             )
             return UserModel.model_validate(new_user, from_attributes=True)        
     
@@ -84,9 +84,8 @@ class UserMongodbRepo(IUserRepo):
     
         try:               
             
-            to_update: dict = user.model_dump_for_update(
+            to_update: dict = user.model_dump_for_db(
                 exclude_none=True,
-                db_stack="no-sql",
             )
             
             await UserCollection.find(
@@ -128,7 +127,7 @@ class UserMongodbRepo(IUserRepo):
                 ).limit(
                     criteria.limit
                 ).sort(
-                    UserCollection.created_at if criteria.order == "asc" else -UserCollection.created_at
+                    UserCollection.id if criteria.order == "asc" else -UserCollection.id
                 )
             
             users_list = await query.to_list()

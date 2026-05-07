@@ -1,7 +1,7 @@
 from pydantic import BaseModel, model_validator
-from typing import Literal, Self
+from typing import TypeAlias, Literal, Self
 
-order_literal = Literal[
+order_literal: TypeAlias = Literal[
     "asc",  # sort values from lowest to highest
     "desc", # sort values from highest to lowest
 ]

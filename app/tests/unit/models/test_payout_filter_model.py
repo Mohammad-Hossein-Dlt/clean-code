@@ -1,6 +1,6 @@
 import unittest
 from pydantic import BaseModel
-from app.src.models.filter.payout_filter_input import PayoutFilterInput
+from src.models.filter.payout_filter_input import PayoutFilterInput
 from src.domain.enums import UserType, PayoutStatus
 from datetime import datetime, timedelta, timezone
 import random

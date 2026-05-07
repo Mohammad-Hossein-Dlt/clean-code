@@ -14,7 +14,7 @@ class WalletMongodbRepo(IWalletRepo):
     
         try:
             user_wallet = await WalletCollection.insert(
-                WalletCollection(**wallet.model_dump_for_mock())
+                WalletCollection(**wallet.model_dump())
             )
             return WalletModel.model_validate(user_wallet, from_attributes=True)
         except:
@@ -27,7 +27,7 @@ class WalletMongodbRepo(IWalletRepo):
     
         try:
             user_wallet = await WalletCollection.insert(
-                WalletCollection(**wallet.model_dump_for_create())
+                WalletCollection(**wallet.model_dump_for_db())
             )
             return WalletModel.model_validate(user_wallet, from_attributes=True)
         except:
@@ -54,9 +54,8 @@ class WalletMongodbRepo(IWalletRepo):
     
         try:               
             
-            to_update: dict = wallet.model_dump_for_update(
+            to_update: dict = wallet.model_dump_for_db(
                 exclude_none=True,
-                db_stack="no-sql",
             )
             
             await WalletCollection.find(
@@ -102,7 +101,7 @@ class WalletMongodbRepo(IWalletRepo):
                 ).limit(
                     criteria.limit
                 ).sort(
-                    WalletCollection.created_at if criteria.order == "asc" else -WalletCollection.created_at
+                    WalletCollection.id if criteria.order == "asc" else -WalletCollection.id
                 )
             
             wallets_list = await query.to_list()
@@ -140,7 +139,7 @@ class WalletMongodbRepo(IWalletRepo):
                 ).limit(
                     criteria.limit
                 ).sort(
-                    WalletCollection.created_at if criteria.order == "asc" else -WalletCollection.created_at
+                    WalletCollection.id if criteria.order == "asc" else -WalletCollection.id
                 )
             
             wallets_list = await query.to_list()

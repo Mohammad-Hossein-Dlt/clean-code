@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from src.domain.schemas.payout.payout_model import PayoutModel
-from app.src.models.filter.payout_filter_input import PayoutFilterInput
+from src.models.filter.payout_filter_input import PayoutFilterInput
 
 class IPayoutRepo(ABC):
     

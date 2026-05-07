@@ -9,21 +9,23 @@ services:
     env_file:
       - .env
     depends_on:
-      - mongo-db
+      - mongodb-service
     ports:
-      - "${EXTERNAL_FASTAPI_PORT}:${INTERNAL_FASTAPI_PORT}"
-    command: ["fastapi", "run", "./src/main.py", "--port", "${INTERNAL_FASTAPI_PORT}"]
+      - 80:80
 
-  mongo-db:
+  mongodb-service:
     image: mongo
     container_name: mongo-db
     restart: always
     ports:
-      - "27017:27017"
-    env_file:
-      - .env
+      - 27017:27017
     volumes:
       - mongo_data:/data/db
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB__USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB__PASSWORD}
 
 volumes:
   mongo_data:
