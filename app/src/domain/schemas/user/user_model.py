@@ -2,13 +2,12 @@ from src.infra.utils.custom_base_model import CustomBaseModel
 from src.domain.enums import UserType
 from pydantic import Field, ConfigDict, model_validator
 from beanie import PydanticObjectId
-from bson.objectid import ObjectId
 from datetime import datetime, timezone
 from typing import Self
 
 class UserModel(CustomBaseModel):
     
-    id: PydanticObjectId = Field(default_factory=ObjectId)
+    id: PydanticObjectId | None = None
     name: str | None = None
     email: str | None = None
     username: str | None = None
@@ -19,7 +18,6 @@ class UserModel(CustomBaseModel):
 
     model_config = ConfigDict(
         extra='allow',
-        populate_by_name=True,
     )
 
     @model_validator(mode='after')

@@ -27,7 +27,7 @@ class WalletMongodbRepo(IWalletRepo):
     
         try:
             user_wallet = await WalletCollection.insert(
-                WalletCollection(**wallet.model_dump_for_db())
+                WalletCollection(**wallet.model_dump_for_db(dump_for="create"))
             )
             return WalletModel.model_validate(user_wallet, from_attributes=True)
         except:
@@ -55,6 +55,7 @@ class WalletMongodbRepo(IWalletRepo):
         try:               
             
             to_update: dict = wallet.model_dump_for_db(
+                dump_for="update",
                 exclude_none=True,
             )
             

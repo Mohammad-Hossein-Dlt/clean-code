@@ -1,12 +1,11 @@
 from src.infra.utils.custom_base_model import CustomBaseModel
 from pydantic import Field, ConfigDict, model_validator
 from beanie import PydanticObjectId
-from bson.objectid import ObjectId
 from datetime import datetime, timezone
 from typing import Self
 
 class TransactionModel(CustomBaseModel):
-    id: PydanticObjectId = Field(default_factory=ObjectId)
+    
     amount: float
     date_available: datetime
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
@@ -14,7 +13,6 @@ class TransactionModel(CustomBaseModel):
     
     model_config = ConfigDict(
         extra='allow',
-        populate_by_name=True,
     )
 
     @model_validator(mode='after')
@@ -28,7 +26,8 @@ class TransactionModel(CustomBaseModel):
         return self
 
 class WalletModel(CustomBaseModel):
-    id: PydanticObjectId = Field(default_factory=ObjectId)
+
+    id: PydanticObjectId | None = None
     user_id: PydanticObjectId | None = None
     available_balance: float | None = None
     pending_balance: float | None = None
@@ -36,10 +35,8 @@ class WalletModel(CustomBaseModel):
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     
-
     model_config = ConfigDict(
         extra='allow',
-        populate_by_name=True,
     )
 
     @model_validator(mode='after')

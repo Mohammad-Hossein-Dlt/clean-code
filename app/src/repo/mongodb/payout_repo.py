@@ -28,7 +28,7 @@ class PayoutMongodbRepo(IPayoutRepo):
                 
         try:
             new_payout = await PayoutCollection.insert(
-                PayoutCollection(**payout.model_dump_for_db()),
+                PayoutCollection(**payout.model_dump_for_db(dump_for="create")),
             )
             return PayoutModel.model_validate(new_payout, from_attributes=True) 
         except:
@@ -56,6 +56,7 @@ class PayoutMongodbRepo(IPayoutRepo):
         try:               
             
             to_update: dict = PayoutModel.model_dump_for_db(
+                dump_for="update",
                 exclude_none=True,
             )
             

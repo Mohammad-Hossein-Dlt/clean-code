@@ -2,7 +2,6 @@ from src.infra.utils.custom_base_model import CustomBaseModel
 from src.domain.enums import UserType, PayoutStatus, PaymentMethod
 from pydantic import ConfigDict, Field, model_validator
 from beanie import PydanticObjectId
-from bson.objectid import ObjectId
 from datetime import datetime, timezone
 from typing import Self
 
@@ -11,7 +10,8 @@ def snake_to_camel(snake_str: str):
     return components[0] + "".join(x.title() for x in components[1:])
 
 class PayoutModel(CustomBaseModel):
-    id: PydanticObjectId = Field(default_factory=ObjectId)
+    
+    id: PydanticObjectId | None = None
     affiliate_tracking_id: PydanticObjectId | None = None
     user_id: PydanticObjectId | None = None
     user_type: UserType | None = None
@@ -23,13 +23,8 @@ class PayoutModel(CustomBaseModel):
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     
     model_config = ConfigDict(
-        alias_generator= snake_to_camel,
-        populate_by_name=True,
         extra='allow',
-        json_encoders={
-            ObjectId: str,
-            PydanticObjectId: str
-        }
+        alias_generator= snake_to_camel,
     )
 
     @model_validator(mode='after')
