@@ -1,15 +1,13 @@
 from src.domain.schemas.payout.payout_model import PayoutModel
 from src.models.filter.payout_filter_input import PayoutFilterInput
 from src.domain.enums import UserType, PayoutStatus, PaymentMethod
-from pydantic import Field, model_validator
 from beanie import Document, before_event, Update
 from beanie import PydanticObjectId
-from bson.objectid import ObjectId
 from datetime import datetime, timezone
 
 class PayoutCollection(PayoutModel, Document):
 
-    id: PydanticObjectId = Field(default_factory=ObjectId)
+    id: PydanticObjectId = None
     affiliate_tracking_id: PydanticObjectId
     user_id: PydanticObjectId
     user_type: UserType
@@ -24,14 +22,6 @@ class PayoutCollection(PayoutModel, Document):
     @before_event(Update)
     def set_updated_at(self):
         self.updated_at = datetime.now(timezone.utc)
-        
-    @model_validator(mode="before")
-    def map_id(cls, values: dict) -> dict:
-
-        if "_id" in values:
-            values["id"] = values.pop("_id")
-        return values
-
 
     @classmethod
     def create_query_by_criteria(
@@ -42,11 +32,11 @@ class PayoutCollection(PayoutModel, Document):
         query = {}
 
         if criteria.start_date:
-            query[str(cls.created)] = {"$gte": criteria.start_date}
+            query[str(cls.created_at)] = {"$gte": criteria.start_date}
 
         if criteria.end_date:
-            query.setdefault(str(cls.created), {})
-            query[str(cls.created)]["$lte"] = criteria.end_date
+            query.setdefault(str(cls.created_at), {})
+            query[str(cls.created_at)]["$lte"] = criteria.end_date
 
         if criteria.payment_start_date:
             query[str(cls.payment_date)] = {"$gte": criteria.payment_start_date}

@@ -44,8 +44,8 @@ class UserModelTestExample(unittest.TestCase):
             "user_type": random.choice(
                 [ user_type.value for user_type in UserType ],
             ),
-            "created": (now - timedelta(days=15)).strftime(datetime_format),
-            "updated": (now - timedelta(days=5)).strftime(datetime_format),
+            "created_at": (now - timedelta(days=15)).strftime(datetime_format),
+            "updated_at": (now - timedelta(days=5)).strftime(datetime_format),
         }
         
         self.test_model = BaseModelTest(UserModel)

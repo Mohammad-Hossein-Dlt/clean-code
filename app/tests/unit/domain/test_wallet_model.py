@@ -40,17 +40,17 @@ class WalletModelTestExample(unittest.TestCase):
                     "id":str(ObjectId()),
                     "amount": 100.50,
                     "date_available": (now + timedelta(days=10)).strftime(datetime_format),
-                    "created": (now - timedelta(days=5)).strftime(datetime_format),
+                    "created_at": (now - timedelta(days=5)).strftime(datetime_format),
                 },
                 {
                     "id":str(ObjectId()),
                     "amount": 70.25,
                     "date_available": (now + timedelta(days=10)).strftime(datetime_format),
-                    "created": (now - timedelta(days=5)).strftime(datetime_format),
+                    "created_at": (now - timedelta(days=5)).strftime(datetime_format),
                 },
             ],
-            "created": (now - timedelta(days=15)).strftime(datetime_format),
-            "updated": (now - timedelta(days=5)).strftime(datetime_format),
+            "created_at": (now - timedelta(days=15)).strftime(datetime_format),
+            "updated_at": (now - timedelta(days=5)).strftime(datetime_format),
         }
                         
         self.test_model = BaseModelTest(WalletModel)

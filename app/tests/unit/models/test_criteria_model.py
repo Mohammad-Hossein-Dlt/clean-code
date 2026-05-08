@@ -50,7 +50,7 @@ class PayoutPaginateTestExample(unittest.TestCase):
                     [ method.value for method in PaymentMethod ],
                 ),
                 "payment_date": (now + timedelta(days=random.randint(1, 30))).strftime(datetime_format),
-                "created": (now - timedelta(days=random.randint(1, 30))).strftime(datetime_format),
+                "created_at": (now - timedelta(days=random.randint(1, 30))).strftime(datetime_format),
             }
                         
             sample_with_alias = {
@@ -62,7 +62,7 @@ class PayoutPaginateTestExample(unittest.TestCase):
                 "status": sample["status"],
                 "paymentMethod": sample["payment_method"],
                 "paymentDate": sample["payment_date"],
-                "created": sample["created"],
+                "created_at": sample["created_at"],
             }
             
             payout_samples.append(sample)

@@ -47,7 +47,7 @@ class PayoutModelTestExample(unittest.TestCase):
                 [ method.value for method in PaymentMethod ],
             ),
             "payment_date": (now + timedelta(days=random.randint(1, 30))).strftime(datetime_format),
-            "created": (now - timedelta(days=random.randint(1, 30))).strftime(datetime_format),
+            "created_at": (now - timedelta(days=random.randint(1, 30))).strftime(datetime_format),
         }
                 
         self.sample_with_alias = {
@@ -59,7 +59,7 @@ class PayoutModelTestExample(unittest.TestCase):
             "status": self.sample["status"],
             "paymentMethod": self.sample["payment_method"],
             "paymentDate": self.sample["payment_date"],
-            "created": self.sample["created"],
+            "created_at": self.sample["created_at"],
         }
             
         self.test_model = BaseModelTest(PayoutModel)
